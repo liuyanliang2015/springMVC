@@ -8,4 +8,37 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
 
+	<!-- mark9：加载 jdbc.properties-->
+ 	<context:property-placeholder location="classpath:conf/props/**/*.properties"/>
+
+	<!-- mark 10：配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- 连接池启动时的初始值 -->
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<!-- 连接池的最大值 -->
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<!-- 最大空闲值，当经过一个高峰时间后，连接池可以慢慢将已经用不到的链接慢慢释放一部分，一直减小到maxIdle为止 -->
+		<property name="maxIdle" value="${jdbc.maxIdle}" />
+		<!-- 最小空闲值，当空闲的连接数小于闸值时，连接池就会预申请去一些连接，以免洪峰来时来不急申请 -->
+		<property name="minIdle" value="${jdbc.minIdle}" />
+        <!--removeAbandoned: 是否自动回收超时连接--> 
+		<property name="removeAbandoned" value="true"/> 
+		<!--removeAbandonedTimeout: 超时时间(以秒数为单位)--> 
+		<property name="removeAbandonedTimeout" value="180"/> 
+		<!--maxWait: 超时等待时间以毫秒为单位 60000毫秒/1000等于60秒--> 
+		<property name="maxWait" value="60000"/> 
+		<property name="validationQuery" value="SELECT NOW() FROM DUAL"/>  
+		<property name="testOnBorrow" value="true"/>
+	</bean>
+	
+	<!--mark 11 配置Spring JdbcTemplate-->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    
+    
 </beans>

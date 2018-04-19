@@ -58,3 +58,21 @@ jackson-databind-2.5.0.jar
 打开浏览器访问：http://localhost:8080/SpringMVC/test/test.do </br>
 如果浏览器输出：{"code":0} </br>
 恭喜你，基本环境搭建完成！</br>
+
+
+### 6:配置jdbc
+(1)加入/springMVC/resource/conf/props/jdbc.properties
+(2)context.xml中配置dataSource数据源和JdbcTemplate
+(3)加入依赖的jar
+```
+commons-dbcp-1.4.jar
+commons-pool-1.5.6.jar
+mysql-connector-java-5.1.7-bin.jar
+
+```
+(4)context.xml配置context:property-placeholder，否则无法获取props文件
+```
+<context:property-placeholder location="classpath:conf/props/**/*.properties"/>
+```
+(5)访问测试接口：http://localhost:8080/SpringMVC/test/queryUser.do
+如果返回{"张三":11,"李四":12}，则jdbc配置ok!
