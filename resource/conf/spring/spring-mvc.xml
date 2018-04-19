@@ -11,7 +11,38 @@
       http://www.springframework.org/schema/mvc  
       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd"> 
 
+	<!--remark5 扫描annotation注解方式配置的Controller，需要配置controller所在的路径 -->
+	<!-- base-package="com.bert.*"  or  base-package="com.bert.controller"能具体路径尽量具体，扫描更效率 -->
 	<context:component-scan base-package="com.bert.controller" use-default-filters="false">
 		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation" />
 	</context:component-scan>
+	
+	
+	<!--remark6:springMVC如果想返回json数据，需要配置json转换器 -->
+	<!--注意：spring3和spring4的配置是有区别的:
+	spring3:org.springframework.http.converter.json.MappingJacksonHttpMessageConverter
+	spring4:org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+	-->
+	
+	<!--remark7:spring4的jackson依赖的jar包，注意版本，这里用的是 
+	jackson-databind-2.5.0.jar
+	jackson-core-2.5.0.jar
+	jackson-annotations-2.5.0.jar
+	如果版本比较低，可能出现jar冲突
+	 -->
+	<mvc:annotation-driven>    
+    <mvc:message-converters register-defaults="true">    
+        <!--json处理-->    
+        <bean    
+            class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
+            <property name="supportedMediaTypes">    
+                <list>    
+                    <value>application/json;charset=UTF-8</value>    
+                    <value>text/html;charset=UTF-8</value>    
+                </list>    
+            </property>    
+        </bean>    
+    </mvc:message-converters>    
+</mvc:annotation-driven>    
+    
 </beans>
