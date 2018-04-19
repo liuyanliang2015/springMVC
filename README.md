@@ -61,18 +61,18 @@ jackson-databind-2.5.0.jar
 
 
 ### 6:配置jdbc
-(1)加入/springMVC/resource/conf/props/jdbc.properties
-(2)context.xml中配置dataSource数据源和JdbcTemplate
-(3)加入依赖的jar
+(1)加入/springMVC/resource/conf/props/jdbc.properties </br>
+(2)context.xml中配置dataSource数据源和JdbcTemplate </br>
+(3)加入依赖的jar  </br>
 ```
 commons-dbcp-1.4.jar
 commons-pool-1.5.6.jar
 mysql-connector-java-5.1.7-bin.jar
 
 ```
-(4)context.xml配置context:property-placeholder，否则无法获取props文件
+(4)context.xml配置context:property-placeholder，否则无法获取props文件 </br>
 ```
 <context:property-placeholder location="classpath:conf/props/**/*.properties"/>
 ```
-(5)访问测试接口：http://localhost:8080/SpringMVC/test/queryUser.do
-如果返回{"张三":11,"李四":12}，则jdbc配置ok!
+(5)访问测试接口：http://localhost:8080/SpringMVC/test/queryUser.do </br>
+如果返回{"张三":11,"李四":12}，则jdbc配置ok! </br>
