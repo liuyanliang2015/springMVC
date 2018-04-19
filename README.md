@@ -1,54 +1,43 @@
 # SpringMVC
 ## 项目介绍
 本项目以初学者的角度，从0开始搭建SpringMVC框架。项目中，小编做了详细的注释，请注意remark标注。
-## 目录结构
+## 搭建过程
+### 1：导入springMVC需要的核心包
 ```
-SpringMVC
-----README.md
-----resource
---------conf
-------------props
-------------spring
-----------------aop.xml
-----------------beans.xml
-----------------context.xml
-----------------spring-mvc.xml
---------logback.xml
-----src
---------com
-------------bert
-----------------controller
---------------------TestController.java
-----------------log
---------------------IpConvert.java
---------------------MyPatternLayout.java
---------------------ThreadNumConverter.java
-----------------util
---------------------CodeStructureUtil.java
-----WebContent
---------META-INF
-------------MANIFEST.MF
---------WEB-INF
-------------classes
-----------------com
---------------------bert
-------------------------controller
-----------------------------TestController.class
-------------------------log
-----------------------------IpConvert.class
-----------------------------MyPatternLayout.class
-----------------------------ThreadNumConverter.class
-------------------------util
-----------------------------CodeStructureUtil.class
-----------------conf
---------------------props
---------------------spring
-------------------------aop.xml
-------------------------beans.xml
-------------------------context.xml
-------------------------spring-mvc.xml
-----------------logback.xml
-------------lib
-------------web.xml
+aopalliance-1.0.jar
+commons-logging-1.2.jar
+spring-aop-4.3.16.RELEASE.jar
+spring-aspects-4.3.16.RELEASE.jar
+spring-beans-4.3.16.RELEASE.jar
+spring-context-4.3.16.RELEASE.jar
+spring-context-support-4.3.16.RELEASE.jar
+spring-core-4.3.16.RELEASE.jar
+spring-expression-4.3.16.RELEASE.jar
+spring-instrument-4.3.16.RELEASE.jar
+spring-instrument-tomcat-4.3.16.RELEASE.jar
+spring-jdbc-4.3.16.RELEASE.jar
+spring-jms-4.3.16.RELEASE.jar
+spring-messaging-4.3.16.RELEASE.jar
+spring-orm-4.3.16.RELEASE.jar
+spring-oxm-4.3.16.RELEASE.jar
+spring-test-4.3.16.RELEASE.jar
+spring-tx-4.3.16.RELEASE.jar
+spring-web-4.3.16.RELEASE.jar
+spring-webmvc-4.3.16.RELEASE.jar
+spring-webmvc-portlet-4.3.16.RELEASE.jar
+spring-websocket-4.3.16.RELEASE.jar
 
 ```
+### 2：配置web.xml
+配置contextConfigLocation加载spring的xml
+配置ContextLoaderListener
+配置DispatcherServlet
+
+### 3：配置slf4j+logback日志
+
+### 4：配置springMVC-jackson支持
+
+### 5：编写测试接口com.bert.controller.TestController
+打开浏览器访问：http://localhost:8080/SpringMVC/test/test.do
+如果浏览器输出：{"code":0}
+恭喜你，基本环境搭建完成！
