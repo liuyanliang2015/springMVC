@@ -30,9 +30,9 @@ spring-websocket-4.3.16.RELEASE.jar
 
 ```
 ### 2：配置web.xml
-配置contextConfigLocation加载spring的xml
-配置ContextLoaderListener
-配置DispatcherServlet
+配置contextConfigLocation加载spring的xml </br>
+配置ContextLoaderListener </br>
+配置DispatcherServlet </br>
 
 ### 3：配置slf4j+logback日志
 依赖的jar：
