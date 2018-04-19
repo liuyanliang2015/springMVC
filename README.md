@@ -45,6 +45,7 @@ slf4j-api-1.7.5.jar
 配置logback.xml
 
 ### 4：配置springMVC-jackson支持
+配置的目的是,让springMVC可以返回Json数据。
 依赖的jar：
 ```
 jackson-annotations-2.5.0.jar
