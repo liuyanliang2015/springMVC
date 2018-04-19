@@ -35,10 +35,25 @@ spring-websocket-4.3.16.RELEASE.jar
 配置DispatcherServlet
 
 ### 3：配置slf4j+logback日志
+依赖的jar：
+```
+logback-classic-1.2.3.jar
+logback-core-1.2.3.jar
+slf4j-api-1.7.5.jar
+
+```
+配置logback.xml
 
 ### 4：配置springMVC-jackson支持
+依赖的jar：
+```
+jackson-annotations-2.5.0.jar
+jackson-core-2.5.0.jar
+jackson-databind-2.5.0.jar
+
+```
 
 ### 5：编写测试接口com.bert.controller.TestController
-打开浏览器访问：http://localhost:8080/SpringMVC/test/test.do
-如果浏览器输出：{"code":0}
-恭喜你，基本环境搭建完成！
+打开浏览器访问：http://localhost:8080/SpringMVC/test/test.do </br>
+如果浏览器输出：{"code":0} </br>
+恭喜你，基本环境搭建完成！</br>
