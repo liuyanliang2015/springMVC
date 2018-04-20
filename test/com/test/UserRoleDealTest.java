@@ -11,8 +11,7 @@ package com.test;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.base.BaseSpringTestCase;
@@ -21,13 +20,21 @@ import com.base.BaseSpringTestCase;
  * @author Administrator	
  */
 public class UserRoleDealTest extends BaseSpringTestCase {
-	@Resource
+	
+	//remark9  使用注解@Autowired装配JdbcTemplate
+	//@Autowired和@Resource都可以，又什么区别呢？
+	/**
+	 * @Resource默认按照名称方式进行bean匹配，@Autowired默认按照类型方式进行bean匹配
+	 * @Resource是J2EE的注解，而@Autowired是spring的注解
+	 */
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	@SuppressWarnings("rawtypes")
 	@org.junit.Test
 	public void testData() throws Exception {
 		try {
+			//remark10   JdbcTemplate用法
 			List<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from tb_user");
 			for (Map row : rows) {
 				System.out.println(row.get("NAME"));
