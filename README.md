@@ -76,3 +76,42 @@ mysql-connector-java-5.1.7-bin.jar
 ```
 (5)访问测试接口：http://localhost:8080/SpringMVC/test/queryUser.do </br>
 如果返回{"张三":11,"李四":12}，则jdbc配置ok! </br>
+
+### 7:配置单元测试
+spring4在单元测试的时候，需要junit4.12版本以上。
+而junit4.12，又依赖hamcrest-core-1.3.jar
+```
+junit-4.12.jar
+hamcrest-core-1.3.jar
+
+```
+
+```
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({
+    "classpath:spring_test.xml"
+})
+public class BaseSpringTestCase {
+
+}
+
+public class UserRoleDealTest extends BaseSpringTestCase {
+	@Resource
+	private JdbcTemplate jdbcTemplate;
+	
+	@SuppressWarnings("rawtypes")
+	@org.junit.Test
+	public void testData() throws Exception {
+		try {
+			List<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from tb_user");
+			for (Map row : rows) {
+				System.out.println(row.get("NAME"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+
+```
+
