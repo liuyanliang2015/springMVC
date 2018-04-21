@@ -115,3 +115,60 @@ public class UserRoleDealTest extends BaseSpringTestCase {
 
 ```
 
+### 8:配置事务
+Spring事务的本质其实就是数据库对事务的支持。<br>
+Spring提供了两种事务管理的方式：编程式事务管理和声明式事务管理。<br>
+声明式事务管理有两种常用的方式：<br>
+一种是基于tx和aop命名空间的xml配置文件，<br>
+一种是基于@Transactional注解<br>
+随着Spring和Java的版本越来越高，大家越趋向于使用注解的方式。 <br>
+```
+<!-- 事务配置begin -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<!-- 声明式事务方式1，基于tx和aop命名空间的xml配置文件-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+
+	<!-- execution(* com.bert.core.*.*.*.*(..))  注意表达式中间用OR链接，大小写敏感-->
+	<aop:config>
+		<aop:pointcut id="txPointcut" expression="execution(* com.bert.core.*.*.*.*(..)) "/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" order="1"/>
+	</aop:config>
+
+
+	<!-- 声明式事务方式2，基于tx和aop命名空间的xml配置文件-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!--事务配置end -->
+```	
+	
+依赖的jar：
+```
+aopalliance-1.0.jar
+aspectjweaver-1.7.0.jar
+spring-tx-4.3.16.RELEASE.jar
+
+```
+
+单元测试父类BaseSpringTestCase，加入事务注解
+```
+//全局配置，这样写不能加载具体的方法上
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)  
+@Transactional  
+```
+具体的单元测试方法上面，加上注解
+```
+//标明此方法需使用事务
+@Transactional
+//false标明使用完此方法后事务不回滚,true时为回滚 
+@Rollback(true)
+```
