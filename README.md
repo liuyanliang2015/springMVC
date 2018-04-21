@@ -172,3 +172,45 @@ spring-tx-4.3.16.RELEASE.jar
 //false标明使用完此方法后事务不回滚,true时为回滚 
 @Rollback(true)
 ```
+
+### 9:集成mybatis
+```
+mybatis-3.3.0.jar
+mybatis-spring-1.2.3.jar
+
+```
+在spring配置文件context.xml，集成mybatis
+```
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <property name="configLocation" value="classpath:conf/mybatis/config.xml"/>
+	</bean>	
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="com.bert.core.**.dao" />
+    </bean>
+```
+配置mybatis配置文件config.xml
+```
+<configuration>
+		<settings>
+			<!--设置日志记录使用方式-->
+			<setting name="logPrefix" value="dao."/>  
+		</settings>
+		<!-- 配置类型别名-->
+		<typeAliases>
+		  	<package name="com.bert.domain"/>
+		</typeAliases>
+		<!-- 翻页插件拦截器-->
+		<plugins>
+			<plugin interceptor="com.bert.query.MyBatisPaginationInterceptor">
+				<property name="dialect" value="mysql" />
+			</plugin>
+		</plugins>
+	</configuration>
+```
+注意：beans.xml中配置组件扫描器，否则无法将service注入到spring容器
+```
+ <context:component-scan base-package="com.bert"/>
+
+```

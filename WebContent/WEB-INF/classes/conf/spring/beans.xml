@@ -8,5 +8,8 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
 
-		<!-- <context:component-scan base-package="com.bert"/> -->
+	  <!--remark22:如果不配置，会报下面的异常，无法将service加载到spring容器 -->
+	   <!-- No qualifying bean of type 'com.bert.core.user.service.UserService' available: expected at least 1 bean which qualifies as autowire candidate.} -->
+	    <context:component-scan base-package="com.bert"/>
+	  
 </beans>

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bert.core.user.service.UserService;
+import com.bert.domain.User;
 import com.google.gson.Gson;
 
 //警告: No mapping found for HTTP request with URI [/SpringMVC/test/test.do] in DispatcherServlet with name 'dispatcher'
@@ -27,6 +29,10 @@ public class TestController {
 	
 	@Resource
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	@Resource
+	private UserService userService;
 	
 	Gson g = new Gson();
 	
@@ -65,6 +71,24 @@ public class TestController {
 			System.out.println(row.get("NAME"));
 			map.put(row.get("NAME").toString(), row.get("AGE"));
 		}
+		return map;
+	}
+	
+	/**
+	 * <!--remark21：测试service->dao->mybatis-->
+	 * 测试mybatis
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/queryMybatis.do",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> queryMybatis(HttpServletRequest request){
+		logger.info("call /test/queryMybatis.do!");
+		Map<String,Object> map = new HashMap<String, Object>();
+		User user  = new User();
+		user.setId(1);
+		user = userService.getUser(user);
+		map.put("data", user);
 		return map;
 	}
 

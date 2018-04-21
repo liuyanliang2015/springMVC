@@ -68,6 +68,19 @@
 	<!-- remark17：声明式事务方式2，基于tx和aop命名空间的xml配置文件-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!--事务配置end -->
+	
+	
+	<!--remark18：spring集成MyBatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <property name="configLocation" value="classpath:conf/mybatis/config.xml"/>
+	</bean>	
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="com.bert.core.**.dao" />
+    </bean>
+    
+    
     
     
 </beans>

@@ -13,15 +13,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.base.BaseSpringTestCase;
 
 /**
  * @author Administrator	
  */
-public class UserRoleDealTest extends BaseSpringTestCase {
+public class UserTest extends BaseSpringTestCase {
 	
 	//remark11 使用注解@Autowired装配JdbcTemplate
 	//@Autowired和@Resource都可以，又什么区别呢？
