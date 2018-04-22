@@ -81,6 +81,17 @@
     </bean>
     
     
-    
+     <!--remark：EhCache配置 -->
+     <!-- spring-context-support-4.3.16.RELEASE.jar -->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>classpath:conf/cache/ehcache.xml</value>
+		</property>
+	</bean>
+
+	<bean id="cacheFactory" class="com.bert.factory.EhCacheFactory">
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
+	
     
 </beans>

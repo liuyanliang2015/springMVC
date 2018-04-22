@@ -214,3 +214,53 @@ mybatis-spring-1.2.3.jar
  <context:component-scan base-package="com.bert"/>
 
 ```
+
+### 8:spring集成Ecache
+```
+ehcache-1.2.3.jar
+spring-context-support-4.3.16.RELEASE.jar
+
+```
+spring配置文件中配置ecache
+
+```
+<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>classpath:conf/cache/ehcache.xml</value>
+		</property>
+	</bean>
+
+	<bean id="cacheFactory" class="com.bert.factory.EhCacheFactory">
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
+```
+
+配置ehcache.xml
+```
+<?xml version="1.0" encoding="UTF-8"?>  
+<ehcache>
+	<!-- 磁盘缓存位置 -->
+ 	<diskStore path="java.io.tmpdir"/>
+   
+	    <defaultCache 
+	    maxElementsInMemory="10000" 
+	    memoryStoreEvictionPolicy="LRU" 
+	    eternal="false"
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="300" 
+		overflowToDisk="false" 
+		diskPersistent="false" />
+        
+	    <cache name="userDataCache"
+	       maxElementsInMemory="4000"
+	       eternal="true"
+	       overflowToDisk="false"
+	       diskPersistent="false"
+	       memoryStoreEvictionPolicy="LRU"/>    
+</ehcache>
+```
+
+测试Ecache
+```
+/springMVC/test/com/test/CacheTest.java
+```

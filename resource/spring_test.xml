@@ -7,7 +7,12 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd  
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
-	<!-- mark9：加载 jdbc.properties-->
+
+
+
+ 	<context:component-scan base-package="com.bert"/>
+ 
+	<!-- 加载 jdbc.properties-->
  	<context:property-placeholder location="classpath:conf/props/**/*.properties"/>
 
 	<!-- 配置数据源 -->
@@ -34,19 +39,19 @@
 		<property name="testOnBorrow" value="true"/>
 	</bean>
 	
-	<!-- 配置Spring JdbcTemplate-->
+	<!--配置Spring JdbcTemplate-->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-
-
- 
-    <!-- 事务配置begin -->
+    
+    
+    
+    <!-- 事务配置begin，事务管理器DataSourceTransactionManager -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
-	<!-- 声明式事务方式1，基于tx和aop命名空间的xml配置文件-->
+	<!--声明式事务方式1，基于tx和aop命名空间的xml配置文件-->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
@@ -57,7 +62,7 @@
 	</tx:advice>
 	
 
-	<!-- execution(* com.bert.core.*.*.*.*(..))  注意表达式中间用OR链接，大小写敏感-->
+	<!--事务作用切面表达式 execution(* com.bert.core.*.*.*.*(..))  注意表达式中间用OR链接，大小写敏感-->
 	<aop:config>
 		<aop:pointcut id="txPointcut" expression="execution(* com.bert.core.*.*.*.*(..)) "/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" order="1"/>
@@ -67,6 +72,35 @@
 	<!-- 声明式事务方式2，基于tx和aop命名空间的xml配置文件-->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<!--事务配置end -->
+	
+	
+	<!--spring集成MyBatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <property name="configLocation" value="classpath:conf/mybatis/config.xml"/>
+	</bean>	
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       <property name="basePackage" value="com.bert.core.**.dao" />
+    </bean>
+    
+    
+     <!--remark：EhCache配置 -->
+     <!-- spring-context-support-4.3.16.RELEASE.jar -->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>classpath:conf/cache/ehcache.xml</value>
+		</property>
+	</bean>
+
+	<bean id="cacheFactory" class="com.bert.factory.EhCacheFactory">
+		<property name="cacheManager" ref="cacheManager"/>
+	</bean>
+	
+	<!-- <bean id="initDataFilter" class="com.lzz.lsp.filter.InitDataFilter">
+		<property name="districtService" ref="districtService"></property>
+		<property name="dictService" ref="dictService"></property>
+	</bean> -->
     
     
 </beans>
