@@ -215,14 +215,15 @@ mybatis-spring-1.2.3.jar
 
 ```
 
-### 8:spring集成Ecache
-缓存适合的场景：常用的一些基础数据，实时性要求不高，例如区域数据 。项目启动的时候将这些数据缓存到cache，用的时候直接获取
+### 10:spring集成Ecache
+缓存应用场景：<br>
+常用的一些基础数据，实时性要求不高，例如区域数据 。项目启动的时候将这些数据缓存到cache，用的时候直接获取
 ```
 ehcache-1.2.3.jar
 spring-context-support-4.3.16.RELEASE.jar
 
 ```
-spring配置文件中配置ecache
+spring配置文件中配置ecache:
 
 ```
 <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -236,28 +237,18 @@ spring配置文件中配置ecache
 	</bean>
 ```
 
-配置ehcache.xml
+配置ehcache.xml:
 ```
 <?xml version="1.0" encoding="UTF-8"?>  
 <ehcache>
-	<!-- 磁盘缓存位置 -->
- 	<diskStore path="java.io.tmpdir"/>
-   
-	    <defaultCache 
-	    maxElementsInMemory="10000" 
-	    memoryStoreEvictionPolicy="LRU" 
-	    eternal="false"
-		timeToIdleSeconds="300" 
-		timeToLiveSeconds="300" 
-		overflowToDisk="false" 
-		diskPersistent="false" />
+		<!-- 磁盘缓存位置 -->
+ 		<diskStore path="java.io.tmpdir"/>
+ 		
+	    <defaultCache maxElementsInMemory="10000"  memoryStoreEvictionPolicy="LRU" 
+	       eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="300"  overflowToDisk="false" diskPersistent="false" />
         
-	    <cache name="userDataCache"
-	       maxElementsInMemory="4000"
-	       eternal="true"
-	       overflowToDisk="false"
-	       diskPersistent="false"
-	       memoryStoreEvictionPolicy="LRU"/>    
+	    <cache name="userDataCache" maxElementsInMemory="4000" eternal="true"
+	       overflowToDisk="false" diskPersistent="false" memoryStoreEvictionPolicy="LRU"/>    
 </ehcache>
 ```
 
