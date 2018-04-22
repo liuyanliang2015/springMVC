@@ -216,6 +216,7 @@ mybatis-spring-1.2.3.jar
 ```
 
 ### 8:spring集成Ecache
+缓存适合的场景：常用的一些基础数据，实时性要求不高，例如区域数据 。项目启动的时候将这些数据缓存到cache，用的时候直接获取
 ```
 ehcache-1.2.3.jar
 spring-context-support-4.3.16.RELEASE.jar

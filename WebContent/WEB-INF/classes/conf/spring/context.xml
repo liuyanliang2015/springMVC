@@ -81,7 +81,8 @@
     </bean>
     
     
-     <!--remark：EhCache配置 -->
+     <!-- remark23 ：EhCache配置 -->
+     <!-- 缓存适合的场景：常用的一些基础数据，实时性要求不高，例如区域数据 。项目启动的时候将这些数据缓存到cache，用的时候直接获取-->
      <!-- spring-context-support-4.3.16.RELEASE.jar -->
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation">
