@@ -1,7 +1,8 @@
 # SpringMVC4 +Spring4 +Mybatis3
 ## 项目地址：https://github.com/liuyanliang2015/springMVC.git
 ## 项目介绍
-本项目以初学者的角度，从0开始搭建SpringMVC框架。项目中，小编做了详细的注释，请注意remark标注。
+本项目以初学者的角度，从0开始搭建SpringMVC框架。项目中，小编做了详细的注释，请注意remark标注。<br>
+项目中用spring集成了mybatis、redis、数据库事务、EhCache等，满足了一般开发的需求。
 ## 搭建过程
 ### 1：导入springMVC需要的核心包
 ```
@@ -315,4 +316,33 @@ Controller用的用法：
 测试案例：http://localhost:8080/SpringMVC/test/testAop.do <br>
 访问上面的接口，就会调用TestAOPTaskProcessor中的doReturningTask方法，处理对应的业务逻辑。<br>
 
+### 12:集成redis
+redis配置文件
+```
+/springMVC/resource/conf/props/redis.properties
+```
+spring中集成redis
+```
+<bean id="jedisPoolConfig"  class="redis.clients.jedis.JedisPoolConfig"  >  
+		    <property name="maxActive"  value="${redis.pool.maxActive}" />  
+		    <property name="maxIdle"    value="${redis.pool.maxIdle}" />  
+		    <property name="maxWait"    value="${redis.pool.maxWait}" />  
+		    <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />  
+		</bean>  
+		
+		 <bean id="jedisShardInfo1" class="com.bert.redis.NewJedisShardInfo">  
+	        <constructor-arg  index="0"   value="${redis.ip}" />  
+		    <constructor-arg  index="1"   value="${redis.port}" type="int" />  
+		    <constructor-arg  index="2"   value="${redis.pool.password}"/>   
+    	</bean>  
+		
+		<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" >  
+		    <constructor-arg index="0"  ref="jedisPoolConfig" />  
+		    <constructor-arg index="1">  
+		        <list>  
+		            <ref bean="jedisShardInfo1"/> 
+		        </list>  
+		    </constructor-arg>  
+		</bean>
+```
 

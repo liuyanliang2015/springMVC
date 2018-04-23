@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd  
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
 
-	<!-- remark9：加载 jdbc.properties-->
+	<!-- remark9：加载 jdbc.properties和redis.properties-->
  	<context:property-placeholder location="classpath:conf/props/**/*.properties"/>
 
 	<!-- remark10：配置数据源 -->
@@ -34,6 +34,34 @@
 		<property name="validationQuery" value="SELECT NOW() FROM DUAL"/>  
 		<property name="testOnBorrow" value="true"/>
 	</bean>
+	
+	
+	  <!-- remark30 :配置redis begin-->
+	  <!-- Redis在3.x版本前是不支持服务端集群的，所以Jedis通过采用一致性哈稀分片算法（Shard），将不同的key分配到不同的redis server上，以达到横向扩展的目的。 -->
+		<bean id="jedisPoolConfig"  class="redis.clients.jedis.JedisPoolConfig"  >  
+		    <property name="maxActive"  value="${redis.pool.maxActive}" />  
+		    <property name="maxIdle"    value="${redis.pool.maxIdle}" />  
+		    <property name="maxWait"    value="${redis.pool.maxWait}" />  
+		    <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />  
+		</bean>  
+		
+		 <bean id="jedisShardInfo1" class="com.bert.redis.NewJedisShardInfo">  
+	        <constructor-arg  index="0"   value="${redis.ip}" />  
+		    <constructor-arg  index="1"   value="${redis.port}" type="int" />  
+		    <constructor-arg  index="2"   value="${redis.pool.password}"/>   
+    	</bean>  
+		
+		<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" >  
+		    <constructor-arg index="0"  ref="jedisPoolConfig" />  
+		    <constructor-arg index="1">  
+		        <list>  
+		            <ref bean="jedisShardInfo1"/> 
+		        </list>  
+		    </constructor-arg>  
+		</bean>
+		
+	 <!--配置redis end-->	
+	
 	
 	<!--remark13: 配置Spring JdbcTemplate-->
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
