@@ -256,3 +256,25 @@ spring配置文件中配置ecache:
 ```
 /springMVC/test/com/test/CacheTest.java
 ```
+
+### 11:配置视图解析器viewResolver，可以访问WEB-INF下面的页面
+```
+	bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/page/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+	</bean>
+```
+Controller用的用法：
+```
+@RequestMapping(value="/testView2.do",method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView testView2(HttpServletRequest request){
+		logger.info("call /test/testView2.do!");
+		Map<String,Object> model = new HashMap<String,Object>();
+		model.put("name", "lyl");
+		return new ModelAndView("/main", model);
+	}
+```
+
+

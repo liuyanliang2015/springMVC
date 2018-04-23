@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
@@ -90,6 +91,40 @@ public class TestController {
 		user = userService.getUser(user);
 		map.put("data", user);
 		return map;
+	}
+	
+	
+	/**
+	 * remark25: 不配置视图解析器viewResolver，可以访问/index.jsp
+	 * <property name="prefix" value="/WEB-INF/page/" />
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/testView1.do",method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView testView1(HttpServletRequest request){
+		logger.info("call /test/testView1.do!");
+		Map<String,Object> model = new HashMap<String,Object>();
+		model.put("name", "lyl");
+		return new ModelAndView("/index.jsp", model);
+	}
+	
+	
+	/**
+	 * remark26:配置了视图解析器viewResolver，可以访问WEB-INF下面的页面
+	 * <property name="prefix" value="/WEB-INF/page/" />
+	 * 并且<property name="suffix" value=".jsp" />
+	 * 已经添加了后缀名，new ModelAndView("/main", model);不用再加后缀名
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/testView2.do",method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView testView2(HttpServletRequest request){
+		logger.info("call /test/testView2.do!");
+		Map<String,Object> model = new HashMap<String,Object>();
+		model.put("name", "lyl");
+		return new ModelAndView("/main", model);
 	}
 
 

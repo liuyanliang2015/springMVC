@@ -45,4 +45,14 @@
     </mvc:message-converters>    
 </mvc:annotation-driven>    
     
+    
+    
+    <!--remark24 :视图解析器,可以访问WEB-INF下的页面（保证源码数据安全）-->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/page/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+	</bean>
+	<!--************************视图解析器结束*****************************-->
+	
 </beans>
