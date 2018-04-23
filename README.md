@@ -280,7 +280,7 @@ Controller用的用法：
 ### 12:切面编程
 配置aop.xml: <br>
 ```
-        <!--remark27: AOP用法1：代码拦截器控制 -->
+        <!--AOP用法1：代码拦截器控制 -->
         <aop:config>
 			<aop:aspect id="taskAspect" ref="testTaskInterceptor">
 			<!-- 多个表达式之间用||分开 -->
@@ -303,7 +303,7 @@ Controller用的用法：
 		<bean id="testTaskProcessor" class="com.bert.task.support.TestAOPTaskProcessor">
 			<!-- 注入service -->
 			<!-- Bean property 'userService' is not writable or has an invalid setter method. Does the parameter type of the setter match the return type of the getter? -->
-			<!--remark28 :注入的service，对应的类中必须有set方法 -->
+			<!--注入的service，对应的类中必须有set方法 -->
 			<property name="userService" ref="userService"/>
 			<property name="interceptInfos">
 				<list>
