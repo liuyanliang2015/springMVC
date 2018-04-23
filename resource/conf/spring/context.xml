@@ -59,6 +59,7 @@
 	
 
 	<!--remark16：事务作用切面表达式 execution(* com.bert.core.*.*.*.*(..))  注意表达式中间用OR链接，大小写敏感-->
+	<!--remark27: AOP用法1：事务控制 -->
 	<aop:config>
 		<aop:pointcut id="txPointcut" expression="execution(* com.bert.core.*.*.*.*(..)) "/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" order="1"/>

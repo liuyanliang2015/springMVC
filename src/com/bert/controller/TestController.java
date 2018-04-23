@@ -126,6 +126,21 @@ public class TestController {
 		model.put("name", "lyl");
 		return new ModelAndView("/main", model);
 	}
+	
+	
+	
+	@RequestMapping(value="/testAop.do",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> testAop(HttpServletRequest request){
+		logger.info("call /test/testAop.do!");
+		Map<String,Object> map = new HashMap<String, Object>();
+		User user  = new User();
+		user.setId(1);
+		user = userService.getUser(user);
+		map.put("data", user);
+		map.put("pushStatus", 1);
+		return map;
+	}
 
 
 }

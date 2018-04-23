@@ -277,4 +277,42 @@ Controller用的用法：
 	}
 ```
 
+### 12:切面编程
+配置aop.xml: <br>
+```
+        <!--remark27: AOP用法1：代码拦截器控制 -->
+        <aop:config>
+			<aop:aspect id="taskAspect" ref="testTaskInterceptor">
+			<!-- 多个表达式之间用||分开 -->
+				<aop:pointcut id="taskPointcut" expression="(execution(* com.bert.controller.*Controller.*(..)))"/>
+	            <aop:after-throwing pointcut-ref="taskPointcut" method="doThrowing" throwing="ex"/>
+	            <aop:after-returning pointcut-ref="taskPointcut" method="doReturning" returning="result"/>
+			</aop:aspect>
+		</aop:config>
+		
+		
+		<bean id="testTaskInterceptor" class="com.bert.task.interceptor.TaskInterceptor">
+			<property name="processors">
+				<list>
+					<ref bean="testTaskProcessor"/>
+				</list>
+			</property>		
+		</bean>
+		
+		
+		<bean id="testTaskProcessor" class="com.bert.task.support.TestAOPTaskProcessor">
+			<!-- 注入service -->
+			<!-- Bean property 'userService' is not writable or has an invalid setter method. Does the parameter type of the setter match the return type of the getter? -->
+			<!--remark28 :注入的service，对应的类中必须有set方法 -->
+			<property name="userService" ref="userService"/>
+			<property name="interceptInfos">
+				<list>
+					<value>com.bert.controller.TestController:testAop</value>
+				</list>
+			</property>
+		</bean> 
+```		
+测试案例：http://localhost:8080/SpringMVC/test/testAop.do <br>
+访问上面的接口，就会调用TestAOPTaskProcessor中的doReturningTask方法，处理对应的业务逻辑。<br>
+
 

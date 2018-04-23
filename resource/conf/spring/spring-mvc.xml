@@ -31,20 +31,19 @@
 	如果版本比较低，可能出现jar冲突
 	 -->
 	<mvc:annotation-driven>    
-    <mvc:message-converters register-defaults="true">    
-        <!--json处理-->    
-        <bean    
-            class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
-            <property name="supportedMediaTypes">    
-                <list>    
-                    <value>application/json;charset=UTF-8</value>    
-                    <value>text/html;charset=UTF-8</value>    
-                </list>    
-            </property>    
-        </bean>    
-    </mvc:message-converters>    
-</mvc:annotation-driven>    
-    
+	    <mvc:message-converters register-defaults="true">    
+	        <!--json处理-->    
+	        <bean    
+	            class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">    
+	            <property name="supportedMediaTypes">    
+	                <list>    
+	                    <value>application/json;charset=UTF-8</value>    
+	                    <value>text/html;charset=UTF-8</value>    
+	                </list>    
+	            </property>    
+	        </bean>    
+	    </mvc:message-converters>    
+	</mvc:annotation-driven>    
     
     
     <!--remark24 :视图解析器,可以访问WEB-INF下的页面（保证源码数据安全）-->
@@ -54,5 +53,8 @@
 		<property name="order" value="1" />
 	</bean>
 	<!--************************视图解析器结束*****************************-->
+	
+	 <!-- remark29 :开启切面编程功能，否则aop.xml中的切面配置不起作用 。必须放在dispatcher默认xml中-->
+	<aop:config proxy-target-class="true"></aop:config>
 	
 </beans>
