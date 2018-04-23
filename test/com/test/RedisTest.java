@@ -1,8 +1,14 @@
 package com.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import redis.clients.jedis.ShardedJedis;
 
 import com.base.BaseSpringTestCase;
+import com.bert.redis.RedisService;
 import com.bert.redis.RedisShardPool;
 /**
  * remark31 : redis是一个key-value存储系统。
@@ -15,18 +21,96 @@ import com.bert.redis.RedisShardPool;
 public class RedisTest extends BaseSpringTestCase {
 	protected RedisShardPool pool;
 	protected ShardedJedis jedis = null;
+	String key = "test_key";
+	int expireTimeSecond = 5;
 	
+	@Resource(name = "redisService")
+	private RedisService redisService ;
+	
+	/**
+	 * 存储和获取字符串
+	 * @throws Exception
+	 */
 	@SuppressWarnings("static-access")
 	@org.junit.Test
-	public void testRedis() throws Exception {
+	public void testRedis1() throws Exception {
 		try {
 			jedis = pool.getShardedJedisPool().getResource();
-			jedis.set("test_key1", "hello");
-			String value = jedis.get("test_key1");
+			jedis.set(key, "hello");
+			String value = jedis.get(key);
 			System.out.println("value:"+value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * 设置失效时间，单位秒
+	 * expire(String key,int seconds)
+	 * @throws Exception
+	 */
+	@SuppressWarnings("static-access")
+	@org.junit.Test
+	public void testRedis2() throws Exception {
+		try {
+			jedis = pool.getShardedJedisPool().getResource();
+			jedis.set(key, "java");
+			String value = jedis.get(key);
+			jedis.expire(key, expireTimeSecond);
+			System.out.println("value:"+value+",expire:"+expireTimeSecond);
+			Thread.sleep(6000);
+			value = jedis.get(key);
+			System.out.println("value:"+value);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 删除数据
+	 * del(String key)
+	 * @throws Exception
+	 */
+	@SuppressWarnings("static-access")
+	@org.junit.Test
+	public void testRedis3() throws Exception {
+		try {
+			jedis = pool.getShardedJedisPool().getResource();
+			jedis.set(key, "java");
+			String value = jedis.get(key);
+			System.out.println("value:"+value);
+			long result = jedis.del(key);
+			System.out.println("result:"+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/**
+	 * 存储集合数据
+	 * @throws Exception
+	 */
+	@org.junit.Test
+	public void testRedis4() throws Exception {
+		try {
+			List<String> list = new ArrayList<String>();
+			list.add("a");
+			list.add("b");
+			list.add("c");
+			redisService.setList(key, list);
+			List<String> list2 = redisService.getList(key, String.class);
+			for(String l : list2){
+				System.out.println(l);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+
+
 
 }
