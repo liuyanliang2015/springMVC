@@ -11,6 +11,7 @@ import com.base.BaseSpringTestCase;
 import com.bert.redis.RedisService;
 import com.bert.redis.RedisShardPool;
 /**
+ * redis测试
  * remark31 : redis是一个key-value存储系统。
  * 和Memcached类似，它支持存储的value类型相对更多，
  * 包括string(字符串)、list(链表)、set(集合)、zset(sorted set --有序集合)和hash（哈希类型）

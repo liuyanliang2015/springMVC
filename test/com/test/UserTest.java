@@ -15,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.base.BaseSpringTestCase;
+import com.bert.core.user.service.UserService;
+import com.bert.domain.User;
 
 /**
+ * jdbc&serice测试
  * @author Administrator	
  */
 public class UserTest extends BaseSpringTestCase {
@@ -30,6 +33,14 @@ public class UserTest extends BaseSpringTestCase {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	UserService userservice;
+	
+	
+	/**
+	 * jdbcTemplate-query测试
+	 * @throws Exception
+	 */
 	@SuppressWarnings("rawtypes")
 	@org.junit.Test
 	public void testQuery() throws Exception {
@@ -46,6 +57,7 @@ public class UserTest extends BaseSpringTestCase {
 	
 	
 	/**
+	 * jdbcTemplate-update测试
 	 * 如果@Rollback(fasle)
 	 * 信息: Committed transaction for test: [DefaultTestContext@528b376 testClass = UserRoleDealTest, testInstance = com.test.UserRoleDealTest@331e0a9f, testMethod = testUpdate@UserRoleDealTest, testException = [null], mergedContextConfiguration = [MergedContextConfiguration@73c2a0d9 testClass = UserRoleDealTest, locations = '{classpath:spring_test.xml}', classes = '{}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{}', contextCustomizers = set[[empty]], contextLoader = 'org.springframework.test.context.support.DelegatingSmartContextLoader', parent = [null]]]
 	 * 如果@Rollback(true)
@@ -62,4 +74,22 @@ public class UserTest extends BaseSpringTestCase {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * service测试
+	 * @throws Exception
+	 */
+	@org.junit.Test
+	public void testService() throws Exception {
+		try {
+			User u = new User();
+			u.setId(1);
+			u = userservice.getUser(u);
+			System.out.println(u.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

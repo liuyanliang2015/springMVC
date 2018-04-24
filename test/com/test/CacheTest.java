@@ -8,6 +8,9 @@ import com.bert.domain.User;
 import com.bert.factory.EhCacheFactory;
 import com.google.gson.Gson;
 
+/**
+ * ehcache测试
+ */
 public class CacheTest extends BaseSpringTestCase {
 	@Resource(name = "userService")
 	private UserService userService ;
