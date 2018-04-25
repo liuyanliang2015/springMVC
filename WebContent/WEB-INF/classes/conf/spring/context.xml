@@ -10,6 +10,9 @@
 
 	<!-- remark9：加载 jdbc.properties和redis.properties-->
  	<context:property-placeholder location="classpath:conf/props/**/*.properties"/>
+ 	
+ 	<!-- remark32：context.xml可以导入其他的xml -->
+ 	<import resource="classpath:conf/spring/beans.xml" />  
 
 	<!-- remark10：配置数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

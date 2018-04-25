@@ -128,7 +128,11 @@ public class TestController {
 	}
 	
 	
-	
+	/**
+	 * 测试AOP切面编程
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="/testAop.do",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> testAop(HttpServletRequest request){
@@ -141,6 +145,6 @@ public class TestController {
 		map.put("pushStatus", 1);
 		return map;
 	}
-
+	
 
 }

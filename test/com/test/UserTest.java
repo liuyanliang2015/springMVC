@@ -8,15 +8,18 @@
  */
 package com.test;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.base.BaseSpringTestCase;
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
+import com.bert.util.ApplicationContextUtil;
 
 /**
  * jdbc&serice测试
@@ -86,6 +89,63 @@ public class UserTest extends BaseSpringTestCase {
 			u.setId(1);
 			u = userservice.getUser(u);
 			System.out.println(u.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	/**
+	 * 反射机制创建对象
+	 * @throws Exception
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@org.junit.Test
+	public void testCreateBean1() throws Exception {
+		Class c = Class.forName("com.bert.domain.User");
+		//无参构造器
+		User u1 = (User)c.newInstance();
+		System.out.println(u1.toString());
+		System.out.println("--------------------------");
+		//有参构造器
+		Constructor<?> con = c.getConstructor(String.class,Integer.class);
+		User u2 = (User)con.newInstance("lyl",30);
+		System.out.println(u2.toString());
+		
+	}
+	
+	
+	
+	/*  remark33: spring创建对象，用了反射机制，默认scope="singleton"单例模式
+	            伪代码的形式来模拟实现:
+		//解析<bean .../>元素的id属性得到该字符串值为“courseDao”  
+		String idStr = "courseDao";  
+		//解析<bean .../>元素的class属性得到该字符串值为“com.qcjy.learning.Dao.impl.CourseDaoImpl”  
+		String classStr = "com.qcjy.learning.Dao.impl.CourseDaoImpl";  
+		//利用反射知识，通过classStr获取Class类对象  
+		Class<?> cls = Class.forName(classStr);  
+		//实例化对象  
+		Object obj = cls.newInstance();  
+		//container表示Spring容器  
+		container.put(idStr, obj);
+	 */
+	@org.junit.Test
+	public void testCreateBean2() throws Exception {
+		ApplicationContext con = ApplicationContextUtil.getApplicationContext();
+		User user1 = (User)con.getBean("user");
+		System.out.println(user1.hashCode());
+		System.out.println("---------------------------");
+		User user2 = (User)con.getBean("user");
+		System.out.println(user2.hashCode());
+		System.out.println("---------------------------");
+		User user3 = (User)con.getBean("user1");
+		System.out.println(user3.toString());
+		
+		System.out.println("---------------------------");
+		User user4= (User)con.getBean("user2");
+		System.out.println(user4.toString());
+		try {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
