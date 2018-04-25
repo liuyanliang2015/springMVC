@@ -40,6 +40,11 @@ public class UserTest extends BaseSpringTestCase {
 	UserService userservice;
 	
 	
+	//remark38: 使用Autowired注解装配spring的bean
+	@Autowired
+	User user;
+	
+	
 	/**
 	 * jdbcTemplate-query测试
 	 * @throws Exception
@@ -145,6 +150,10 @@ public class UserTest extends BaseSpringTestCase {
 		System.out.println("---------------------------");
 		User user4= (User)con.getBean("user2");
 		System.out.println(user4.toString());
+		
+		System.out.println("---------------------------");
+		//remark38: 使用Autowired注解装配spring的bean
+		System.out.println(user.toString());
 		try {
 		} catch (Exception e) {
 			e.printStackTrace();
