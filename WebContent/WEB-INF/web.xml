@@ -3,17 +3,45 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+        
+        
          
+    <!-- remark39: listner,filter,servlet加载顺序：listner> filter> servlet
+    	信息: Initializing Spring root WebApplicationContext
+    	信息: Root WebApplicationContext: initialization started
+    	
+    	2018-04-25 17:22:39.754 [15] INFO  [com.bert.filter.CORSFilter init,67]  ==>[filter init ok!]
+    	
+		信息: Initializing Spring FrameworkServlet 'dispatcher'
+		信息: FrameworkServlet 'dispatcher': initialization started
+    -->    
+    
+    
+    
+        
+	    <!-- remark40:spring容器加载器 -->
+		<!-- ContextLoaderListener继承了ServletContextListener -->
+		<!-- ServletContextListener用到了观察者模式，filter和sevlet初始化前和销毁后都会通知到它的监听器 ，
+		               它能够监听ServletContext对象的生命周期，实际上就是监听Web应用的生命周期-->
+		<!-- ContextLoaderListener用到了代理模式，代理ContextLoader实现WebApplicationContext的初始化 -->
+		<!-- 配置并且刷新实例化整个SpringApplicationContext中的Bean。因此，如果我们的Bean配置出错的话，在容器启动的时候，会抛异常出来的。 -->
+		<!-- 读取web.xml中配置的context-param中的配置文件，提前在web容器初始化前准备业务对应的Application context;
+		              将创建好的Application context放置于ServletContext中，为springMVC部分的初始化做好准备。 -->
+		<listener>
+	        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	    </listener>
+    
+     
     <context-param>
         <param-name>contextConfigLocation</param-name>
          <param-value>classpath*:conf/spring/**/*.xml</param-value>
     </context-param>
+   
     
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    
-    
+    <!-- remark41:spring前端控制器 -->
+    <!-- DispatcherServlet extends FrameworkServlet extends HttpServletBean extends HttpServlet -->
+    <!-- DispatchServlet是HTTP请求的中央调度处理器，它将web请求转发给controller层处理，它提供了敏捷的映射和异常处理机制。
+         DispatchServlet转发请求的核心代码在doService()方法中实现 -->
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -32,4 +60,16 @@
     	 ApplicationContext.xml 是spring 全局配置文件，用来控制spring特性的
 　　   	     dispatcher-servlet.xml 是spring mvc里面的，控制器、拦截uri转发view 
     -->
+    
+    
+    <filter>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>com.bert.filter.CORSFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 </web-app>
