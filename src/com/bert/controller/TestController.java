@@ -25,12 +25,14 @@ import com.google.gson.Gson;
 //<context:component-scan base-package="com.bert.controller" use-default-filters="false">
 @Controller
 @RequestMapping("/test")
+//remark:Contoller默认scope = singleton单例模式，效率高，但是有线程安全问题
+//remark:scope =prototype,每次请求生成一个新的Contoller
+//@Scope("prototype")
 public class TestController {
 	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 	
 	@Resource
 	private JdbcTemplate jdbcTemplate;
-	
 	
 	@Resource
 	private UserService userService;
@@ -146,5 +148,24 @@ public class TestController {
 		return map;
 	}
 	
+	private static int a = 0;
+	private int index = 0;
+	/**
+	 * 测试controller的线程安全问题
+	 * 多次调用，发现线程id、this.hashCode()、this都是一样的，说明Contoller对象是单例的
+	 * jmeter多线程调用，会发现变量index为所有请求共享，会出现线程安全问题
+	 * 解决方法1：为Contoller加上@Scope("prototype")注解，Contoller非单例，会发现static修饰的a共享，但是index已经是每个线程独有
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/testThreadSafe.do",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> testThreadSafe(HttpServletRequest request){
+		//logger.info("thread:"+ Thread.currentThread()+",hashCode:"+this.hashCode()+","+this);
+		logger.info(a++ + " | " + index++);
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("data", 0);
+		return map;
+	}
 
 }
