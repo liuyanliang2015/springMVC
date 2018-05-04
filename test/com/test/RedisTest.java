@@ -29,12 +29,13 @@ public class RedisTest extends BaseSpringTestCase {
 
 	
 	/**
-	 * 存储List数据类型(新疆白名单)
+	 * 存储List数据类型(IP白名单)
 	 */
 	@org.junit.Test
 	public void testRedis4() throws Exception {
 		try {
 			List<String> list = new ArrayList<String>();
+			//新疆IP端
 			list.add("49.112.0.0-49.119.255.255");
 			list.add("222.80.0.0-222.81.255.255");
 			list.add("124.117.0.0-124.117.255.255");
@@ -54,9 +55,10 @@ public class RedisTest extends BaseSpringTestCase {
 			list.add("124.88.0.0-124.88.255.255");
 			list.add("202.107.128.0-202.107.255.255");
 			list.add("202.100.168.0-202.100.175.255");
+			//北方跃龙
+			list.add("172.16.0.0-172.16.255.255");
 			redisService.setList("WHITE_LIST", list);
-			List<String> list2 = redisService.getList("WHITE_LIST",
-					String.class);
+			List<String> list2 = redisService.getList("WHITE_LIST",String.class);
 			for (String l : list2) {
 				System.out.println(l);
 			}
@@ -117,7 +119,7 @@ public class RedisTest extends BaseSpringTestCase {
 	public void testDelRedis() throws Exception {
 		try {
 			jedis = pool.getShardedJedisPool().getResource();
-			long r = jedis.del("WHITE_LIST");
+			long r = jedis.del("BLACK_LIST");
 			System.out.println(r);
 		} catch (Exception e) {
 			e.printStackTrace();
