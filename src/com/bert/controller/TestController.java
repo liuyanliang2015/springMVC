@@ -3,6 +3,8 @@ package com.bert.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
+import com.bert.util.SignUtil;
 import com.google.gson.Gson;
 
 //警告: No mapping found for HTTP request with URI [/SpringMVC/test/test.do] in DispatcherServlet with name 'dispatcher'
@@ -86,6 +89,20 @@ public class TestController {
 	@RequestMapping(value="/queryMybatis.do",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> queryMybatis(HttpServletRequest request){
+		
+		/*SortedMap<Object,Object> parameters = new TreeMap<Object,Object>();
+		parameters.put("order_id", out_order_id);
+		parameters.put("appid", appid);
+		parameters.put("nonce_str", nonce_str);
+		parameters.put("timestamp", timestamp);
+		boolean ifSign = SignUtil.verify2(sign, "UTF-8", parameters);
+		if(!ifSign){
+			result.setStatus(GasErrorCodeV2.SIGN_ERROR_CODE);
+			result.setMsg(GasErrorCodeV2.SIGN_ERROR_CODE_MSG);
+			return result;
+		}*/
+		
+		
 		logger.info("call /test/queryMybatis.do!");
 		Map<String,Object> map = new HashMap<String, Object>();
 		User user  = new User();
