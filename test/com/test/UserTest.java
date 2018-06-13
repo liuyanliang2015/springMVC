@@ -56,7 +56,7 @@ public class UserTest extends BaseSpringTestCase {
 			//remark12   JdbcTemplate用法
 			List<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from tb_user");
 			for (Map row : rows) {
-				System.out.println(row.get("NAME"));
+				System.out.println(row.get("name"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

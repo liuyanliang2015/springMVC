@@ -10,9 +10,6 @@
 
 	<!-- remark9：加载 jdbc.properties和redis.properties-->
  	<context:property-placeholder location="classpath:conf/props/**/*.properties"/>
- 	
- 	<!-- remark32：context.xml可以导入其他的xml -->
- 	<import resource="classpath:conf/spring/beans.xml" />  
 
 	<!-- remark10：配置数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
@@ -34,7 +31,11 @@
 		<property name="removeAbandonedTimeout" value="180"/> 
 		<!--maxWait: 超时等待时间以毫秒为单位 60000毫秒/1000等于60秒--> 
 		<property name="maxWait" value="60000"/> 
-		<property name="validationQuery" value="SELECT NOW() FROM DUAL"/>  
+		
+		<!-- <property name="validationQuery" value="SELECT NOW() FROM DUAL"/>   -->
+		<!-- mark:mysql中函数now(),在SqlServer中是getdate()，并且没有DAUL -->
+		<property name="validationQuery" value="SELECT getdate()"/>  
+		
 		<property name="testOnBorrow" value="true"/>
 	</bean>
 	
