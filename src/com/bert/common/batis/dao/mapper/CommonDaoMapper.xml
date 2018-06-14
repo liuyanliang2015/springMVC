@@ -5,10 +5,10 @@
 
     <sql id="condition_Search">
         <where>
-            <foreach collection="orCriteria.orCriteria" item="criteria"
+            <foreach collection="condition.criterias" item="criteria"
                      separator="or">
                 <trim prefix="(" suffix=")">
-                    <foreach collection="criteria.criteria" item="criterion"
+                    <foreach collection="criteria.criterions" item="criterion"
                              separator="and">
                         <choose>
                             <when
@@ -45,17 +45,17 @@
                     </foreach>
                 </trim>
             </foreach>
-            <foreach collection="orCriteria.orderList" separator=","
+            <foreach collection="condition.orderList" separator=","
                      item="order">
                 ${order.statement}
             </foreach>
-            <if test="orCriteria.maxResults>0">
-                limit ${orCriteria.firstResult},${orCriteria.maxResults}
+            <if test="condition.maxResults>0">
+                limit ${condition.firstResult},${condition.maxResults}
             </if>
         </where>
     </sql>
     
-    <select id="selectByCriteria" parameterType="com.bert.common.batis.OrCriteria">
+    <select id="selectByCriteria" parameterType="com.bert.common.batis.Condition">
         select
         * from @tableName@
         <if test="_parameter != null">
@@ -67,7 +67,7 @@
         select * from @tableName@
     </select>
     
-    <select id="countByCriteria" parameterType="com.bert.common.batis.OrCriteria"
+    <select id="countByCriteria" parameterType="com.bert.common.batis.Condition"
             resultType="java.lang.Integer">
         select count(*) from @tableName@
         <if test="_parameter != null">

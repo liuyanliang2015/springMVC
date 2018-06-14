@@ -10,11 +10,11 @@ public class Criteria {
 
     private List<Criterion> criterions = new ArrayList<Criterion>();
 
-    public List<Criterion> getCriteria() {
+    public List<Criterion> getCriterions() {
         return Collections.unmodifiableList(criterions);
     }
 
-    public void setCriteria(List<Criterion> criterions) {
+    public void setCriterions(List<Criterion> criterions) {
         this.criterions = criterions;
     }
 

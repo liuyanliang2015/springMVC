@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bert.common.batis.CommonDaoMapperFactory;
 import com.bert.common.batis.Criteria;
-import com.bert.common.batis.OrCriteria;
+import com.bert.common.batis.Condition;
 import com.bert.common.batis.criterion.Restrictions;
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
@@ -127,13 +127,13 @@ public class TestController {
 	public Map<String,Object> queryCommonMybatis(HttpServletRequest request){
 		logger.info("call /test/queryCommonMybatis.do!");
 		Map<String,Object> result = new HashMap<String, Object>();
-		OrCriteria orCriteria = new OrCriteria();
+		Condition condition = new Condition();
 	    Criteria criteria = new Criteria();
 	    //condition = eq (=)
 	    criteria.add(Restrictions.eq("id", 2));
 	    //criteria.add(Restrictions.between("id", 1, 4));
-	    orCriteria.add(criteria);
-	    List<User> list = CommonDaoMapperFactory.getCommonDaoMapper().selectByCriteria(User.class, orCriteria);
+	    condition.add(criteria);
+	    List<User> list = CommonDaoMapperFactory.getCommonDaoMapper().selectByCriteria(User.class, condition);
 		result.put("data", list);
 		result.put("status", 0);
 		result.put("msg","ok");

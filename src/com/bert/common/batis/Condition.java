@@ -6,20 +6,20 @@ import java.util.List;
 
 import com.bert.common.batis.criterion.Order;
 
-public class OrCriteria {
+public class Condition {
 
     private Integer maxResults;
     private Integer firstResult;
     private List<Order> orderList;
-    private List<Criteria> orCriteria;
+    private List<Criteria> criterias;
     private boolean distinct;
 
-    public OrCriteria() {
+    public Condition() {
         orderList = new ArrayList<Order>();
-        orCriteria = new ArrayList<Criteria>();
+        criterias = new ArrayList<Criteria>();
     }
 
-    public OrCriteria addOrder(Order order) {
+    public Condition addOrder(Order order) {
         if (order == null || order.getPropertyName() == null
                 || "".equals(order.getPropertyName())) {
             throw new IllegalArgumentException(
@@ -30,17 +30,17 @@ public class OrCriteria {
     }
 
     public Criteria add(Criteria criteria) {
-        orCriteria.add(criteria);
+    	criterias.add(criteria);
         return criteria;
     }
 
     public void or(Criteria criteria) {
-        orCriteria.add(criteria);
+    	criterias.add(criteria);
     }
 
     public Criteria or() {
         Criteria criteria = new Criteria();
-        orCriteria.add(criteria);
+        criterias.add(criteria);
         return criteria;
     }
 
@@ -64,12 +64,12 @@ public class OrCriteria {
         return firstResult;
     }
 
-    public List<Criteria> getOrCriteria() {
-        return Collections.unmodifiableList(orCriteria);
+    public List<Criteria> getCriterias() {
+        return Collections.unmodifiableList(criterias);
     }
 
-    public void setOrCriteria(List<Criteria> orCriteria) {
-        this.orCriteria = orCriteria;
+    public void setCriterias(List<Criteria> criterias) {
+        this.criterias = criterias;
     }
 
     public boolean isDistinct() {

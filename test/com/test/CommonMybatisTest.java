@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.bert.common.batis.Criteria;
-import com.bert.common.batis.OrCriteria;
+import com.bert.common.batis.Condition;
 import com.bert.common.batis.criterion.Restrictions;
 import com.bert.common.batis.dao.mapper.CommonDaoMapper;
 import com.bert.common.batis.plugin.Transfer;
@@ -42,8 +42,8 @@ public class CommonMybatisTest {
      */
     @Test
     public void testSelectAllByCriteria() {
-        OrCriteria orCriteria = new OrCriteria();
-        List<User> list = commonDaoMapper.selectByCriteria(User.class, orCriteria);
+        Condition condition = new Condition();
+        List<User> list = commonDaoMapper.selectByCriteria(User.class, condition);
         for (User u : list) {
             System.out.println(u);
         }
@@ -55,13 +55,12 @@ public class CommonMybatisTest {
      */
     @Test
     public void testSelectByCriteria() {
-        OrCriteria orCriteria = new OrCriteria();
+        Condition condition = new Condition();
         Criteria criteria = new Criteria();
-        //condition = eq (=)
-        criteria.add(Restrictions.eq("id", 2));
-        //criteria.add(Restrictions.between("id", 1, 4));
-        orCriteria.add(criteria);
-        List<User> list = commonDaoMapper.selectByCriteria(User.class, orCriteria);
+        criteria.add(Restrictions.gt("id", 1));
+        criteria.add(Restrictions.lt("id", 4));
+        condition.add(criteria);
+        List<User> list = commonDaoMapper.selectByCriteria(User.class, condition);
         for (User u : list) {
             System.out.println(u);
         }
@@ -72,12 +71,12 @@ public class CommonMybatisTest {
      */
     @Test
     public void testCountByCriteria() {
-        OrCriteria orCriteria = new OrCriteria();
+        Condition condition = new Condition();
         Criteria criteria = new Criteria();
         //condition = gt(>)
         criteria.add(Restrictions.gt("id", 1));
-        orCriteria.add(criteria);
-        int count = commonDaoMapper.countByCriteria(User.class, orCriteria);
+        condition.add(criteria);
+        int count = commonDaoMapper.countByCriteria(User.class, condition);
         System.out.println("count:"+count);
     }
     
@@ -109,13 +108,13 @@ public class CommonMybatisTest {
      */
     @Test
     public void testDeleteByCriteria() {
-    	OrCriteria orCriteria = new OrCriteria();
+    	Condition condition = new Condition();
         Criteria criteria = new Criteria();
         //condition = eq (=)
         criteria.add(Restrictions.eq("id", 2));
         //criteria.add(Restrictions.between("id", 1, 4));
-        orCriteria.add(criteria);
-        int count = commonDaoMapper.deleteByCriteria(User.class, orCriteria);
+        condition.add(criteria);
+        int count = commonDaoMapper.deleteByCriteria(User.class, condition);
         System.out.println("count:"+count);
     }
     
@@ -140,13 +139,13 @@ public class CommonMybatisTest {
      */
     @Test
     public void testUpdateByCriteria(){
-    	OrCriteria orCriteria = new OrCriteria();
+    	Condition condition = new Condition();
     	Criteria criteria = new Criteria();
     	criteria.add(Restrictions.eq("id", 1));
-    	orCriteria.add(criteria);
+    	condition.add(criteria);
     	User user = new User();
     	user.setName("张三三");
-    	int count = commonDaoMapper.updateByCriteria(user, orCriteria);
+    	int count = commonDaoMapper.updateByCriteria(user, condition);
     	System.out.println("count:"+count);
     }
 }
