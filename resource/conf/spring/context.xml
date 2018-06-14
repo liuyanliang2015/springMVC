@@ -32,9 +32,9 @@
 		<!--maxWait: 超时等待时间以毫秒为单位 60000毫秒/1000等于60秒--> 
 		<property name="maxWait" value="60000"/> 
 		
-		<!-- <property name="validationQuery" value="SELECT NOW() FROM DUAL"/>   -->
+		<property name="validationQuery" value="SELECT NOW() FROM DUAL"/>  
 		<!-- mark:mysql中函数now(),在SqlServer中是getdate()，并且没有DAUL -->
-		<property name="validationQuery" value="SELECT getdate()"/>  
+		<!-- <property name="validationQuery" value="SELECT getdate()"/>   -->
 		
 		<property name="testOnBorrow" value="true"/>
 	</bean>

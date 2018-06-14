@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd ">
 
 
-
+    <!-- enable component scanning and autowire (beware that this does not enable mapper scanning!) -->
  	<context:component-scan base-package="com.bert"/>
  
  
@@ -44,8 +44,8 @@
 		
 		<!-- <property name="validationQuery" value="SELECT NOW() FROM DUAL"/>   -->
 		<!-- mark:mysql中函数now(),在SqlServer中是getdate()，并且没有DAUL -->
-		<property name="validationQuery" value="SELECT getdate()"/>  
-		
+        <!--<property name="validationQuery" value="SELECT getdate()"/>  --> 
+		<property name="validationQuery" value="${jdbc.validQuery}"></property>
 		<property name="testOnBorrow" value="true"/>
 	</bean>
 	
@@ -122,8 +122,12 @@
 	</bean>	
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-       <property name="basePackage" value="com.bert.core.**.dao" />
+       <property name="basePackage" value="com.bert.core.**.dao,com.bert.common.batis.dao.mapper" />
     </bean>
+    
+     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+          <constructor-arg index="0" ref="sqlSessionFactory" />
+     </bean>
     
     
      <!--remark：EhCache配置 -->
