@@ -39,7 +39,7 @@ import com.bert.common.batis.util.TableNameParser;
                 ResultHandler.class}),
         @Signature(type = Executor.class, method = "update", args = {
                 MappedStatement.class, Object.class})})
-public class Transfer implements Interceptor {
+public class TransferMybatisSqlInterceptor implements Interceptor {
 
     private volatile boolean init = false;
 
@@ -89,7 +89,7 @@ public class Transfer implements Interceptor {
         reconstructSqlSource(ms, parameter, tableSimpleName, handleKey, appendType);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private void reconstructSqlSource(MappedStatement ms,
                                       Object parameter, String tableSimpleName, boolean handleKey, APPENDTYPE appendType) {
         SqlSource sqlSource = ms.getSqlSource();

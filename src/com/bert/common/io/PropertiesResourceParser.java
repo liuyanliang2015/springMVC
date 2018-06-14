@@ -1,4 +1,4 @@
-package com.bert.util.io;
+package com.bert.common.io;
 
 import java.io.IOException;
 

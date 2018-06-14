@@ -18,6 +18,7 @@ public class CommonMybatisNomalTest extends BaseSpringTestCase{
 	
 	@Autowired
 	private CommonDaoMapper commonDaoMapper;
+	
     /**
      * 查询全部
      */

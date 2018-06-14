@@ -1,4 +1,4 @@
-package com.bert.util;
+package com.bert.common.util;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HttpRequestUtil {
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Map<String,String> getParameterMap(HttpServletRequest request) {
 	    // 参数Map
 	    Map properties = request.getParameterMap();

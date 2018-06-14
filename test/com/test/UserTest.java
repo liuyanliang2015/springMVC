@@ -17,9 +17,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.base.BaseSpringTestCase;
+import com.bert.common.util.ApplicationContextUtil;
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
-import com.bert.util.ApplicationContextUtil;
 
 /**
  * jdbc&serice测试

@@ -1,4 +1,4 @@
-package com.bert.util.io;
+package com.bert.common.io;
 
 public class ResourceParseException extends RuntimeException{
 

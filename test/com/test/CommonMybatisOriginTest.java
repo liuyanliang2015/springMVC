@@ -9,11 +9,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.bert.common.batis.Criteria;
 import com.bert.common.batis.Condition;
+import com.bert.common.batis.Criteria;
 import com.bert.common.batis.criterion.Restrictions;
 import com.bert.common.batis.dao.mapper.CommonDaoMapper;
-import com.bert.common.batis.plugin.Transfer;
+import com.bert.common.batis.plugin.TransferMybatisSqlInterceptor;
 import com.bert.domain.User;
 import com.bert.domain.UserKey;
 
@@ -32,7 +32,7 @@ public class CommonMybatisOriginTest {
             e.printStackTrace();
         }
         sessionTemplate = context.getBean(SqlSessionTemplate.class);
-        sessionTemplate.getConfiguration().addInterceptor(new Transfer());
+        sessionTemplate.getConfiguration().addInterceptor(new TransferMybatisSqlInterceptor());
         commonDaoMapper = context.getBean(CommonDaoMapper.class);
     }
     

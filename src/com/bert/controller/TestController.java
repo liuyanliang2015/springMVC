@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +22,10 @@ import com.bert.common.batis.Condition;
 import com.bert.common.batis.Criteria;
 import com.bert.common.batis.criterion.Restrictions;
 import com.bert.common.batis.dao.mapper.CommonDaoMapper;
+import com.bert.common.util.HttpRequestUtil;
+import com.bert.common.util.SignUtil;
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
-import com.bert.util.HttpRequestUtil;
-import com.bert.util.SignUtil;
 import com.google.gson.Gson;
 
 //警告: No mapping found for HTTP request with URI [/SpringMVC/test/test.do] in DispatcherServlet with name 'dispatcher'

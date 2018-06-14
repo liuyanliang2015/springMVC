@@ -2,16 +2,15 @@ package com.bert.common.batis.util;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
-@SuppressWarnings("unchecked")
 public class ReflectionUtil extends ReflectionUtils {
 
-    public static List<Field> getAllFields(Class clazz) {
+    @SuppressWarnings("rawtypes")
+	public static List<Field> getAllFields(Class clazz) {
         Assert.notNull(clazz, "Class must not be null");
         Class<?> searchType = clazz;
         List<Field> liFields = new ArrayList<Field>();

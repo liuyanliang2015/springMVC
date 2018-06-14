@@ -11,13 +11,14 @@
 		<typeAliases>
 		  	<package name="com.bert.domain"/>
 		</typeAliases>
-		<!-- 翻页插件拦截器-->
+		
 		<plugins>
-			<plugin interceptor="com.bert.query.MyBatisPaginationInterceptor">
+			<!-- 翻页插件-->
+			<plugin interceptor="com.bert.common.batis.plugin.MyBatisPaginationInterceptor">
 				<property name="dialect" value="mysql" />
 			</plugin>
-			
-			<plugin interceptor="com.bert.common.batis.plugin.Transfer">
+			<!-- 通用mapper处理插件-->
+			<plugin interceptor="com.bert.common.batis.plugin.TransferMybatisSqlInterceptor">
 				<property name="dialect" value="mysql" />
 			</plugin>
 		</plugins>
