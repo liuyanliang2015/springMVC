@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
+import com.bert.util.HttpRequestUtil;
 import com.bert.util.SignUtil;
 import com.google.gson.Gson;
 
@@ -67,7 +68,7 @@ public class TestController {
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/queryJdbc.do",method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> queryUser(HttpServletRequest request){
+	public Map<String,Object> queryJdbc(HttpServletRequest request){
 		logger.info("call /test/queryUser.do!");
 		Map<String,Object> map = new HashMap<String, Object>();
 		String sql = "SELECT * FROM tb_user";
@@ -84,32 +85,35 @@ public class TestController {
 	 * <!--remark21：测试service->dao->mybatis-->
 	 * 测试mybatis
 	 * @param request
+	 * http://localhost:8080/SpringMVC/test/queryMybatis.do?uid=1&nonce_str=abcd&timestamp=1234567890&sign=fc71545ce59dbddee44e4447c5e981e6bb8ddc03420dd3081e0e82c5ec03c4e1
 	 * @return
 	 */
 	@RequestMapping(value="/queryMybatis.do",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> queryMybatis(HttpServletRequest request){
+		logger.info("call /test/queryMybatis.do!");
+		Map<String,Object> result = new HashMap<String, Object>();
+		Map<String,String> paramMap = HttpRequestUtil.getParameterMap(request);
+		String sign = paramMap.get("sign");
+				
+		SortedMap<Object,Object> parameters = new TreeMap<Object,Object>();
+		parameters.put("uid", paramMap.get("uid"));
+		parameters.put("nonce_str", paramMap.get("nonce_str"));
+		parameters.put("timestamp", paramMap.get("timestamp"));
 		
-		/*SortedMap<Object,Object> parameters = new TreeMap<Object,Object>();
-		parameters.put("order_id", out_order_id);
-		parameters.put("appid", appid);
-		parameters.put("nonce_str", nonce_str);
-		parameters.put("timestamp", timestamp);
 		boolean ifSign = SignUtil.verify2(sign, "UTF-8", parameters);
 		if(!ifSign){
-			result.setStatus(GasErrorCodeV2.SIGN_ERROR_CODE);
-			result.setMsg(GasErrorCodeV2.SIGN_ERROR_CODE_MSG);
+			result.put("status", 10001);
+			result.put("msg", "sign错误");
 			return result;
-		}*/
-		
-		
-		logger.info("call /test/queryMybatis.do!");
-		Map<String,Object> map = new HashMap<String, Object>();
+		}
 		User user  = new User();
 		user.setId(1);
 		user = userService.getUser(user);
-		map.put("data", user);
-		return map;
+		result.put("data", user);
+		result.put("status", 0);
+		result.put("msg","ok");
+		return result;
 	}
 	
 	

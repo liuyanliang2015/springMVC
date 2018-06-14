@@ -9,6 +9,7 @@
 
 	<select id="getUser" parameterType="User" resultMap="userMap">
 		SELECT
+		top 1
 		*
 		FROM
 		tb_user t
@@ -17,7 +18,7 @@
 			<if test="name !=null and name !=''">AND t.NAME = #{name}</if>
 			<if test="age !=null">AND t.AGE = #{age}</if>
 		</where>
-		LIMIT 1
+		<!-- LIMIT 1 -->
 	</select>
 
 

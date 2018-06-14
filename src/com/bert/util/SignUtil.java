@@ -12,8 +12,6 @@ import javax.xml.bind.DatatypeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.bert.util.io.PropertiesSource;
-
 /**
  * 验证签名
  * @author Administrator	
@@ -21,6 +19,7 @@ import com.bert.util.io.PropertiesSource;
 public class SignUtil {
 	 private static final Logger logger = LoggerFactory.getLogger(SignUtil.class);
 	 
+	 private static final String signKey = "mnbzmlkalsdfffa";
 	/** 
      * 签名算法sign 
      * @param characterEncoding  字符编码
@@ -30,7 +29,7 @@ public class SignUtil {
     @SuppressWarnings("rawtypes")
 	public static String createSign(String characterEncoding,SortedMap<Object,Object> parameters){
     	String sign  = "";
-    	String signKey = PropertiesSource.getProperty("signKey");
+    	//String signKey = PropertiesSource.getProperty("signKey");
     	try {
         StringBuffer sb = new StringBuffer();  
         Set es = parameters.entrySet();
