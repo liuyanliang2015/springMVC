@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bert.common.batis.CommonDaoMapperFactory;
-import com.bert.common.batis.Criteria;
 import com.bert.common.batis.Condition;
+import com.bert.common.batis.Criteria;
 import com.bert.common.batis.criterion.Restrictions;
+import com.bert.common.batis.dao.mapper.CommonDaoMapper;
 import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
 import com.bert.util.HttpRequestUtil;
@@ -41,6 +42,9 @@ public class TestController {
 	
 	@Resource
 	private JdbcTemplate jdbcTemplate;
+	
+	@Resource
+	private CommonDaoMapper commonDaoMapper;
 	
 	@Resource
 	private UserService userService;
@@ -133,7 +137,7 @@ public class TestController {
 	    criteria.add(Restrictions.eq("id", 2));
 	    //criteria.add(Restrictions.between("id", 1, 4));
 	    condition.add(criteria);
-	    List<User> list = CommonDaoMapperFactory.getCommonDaoMapper().selectByCriteria(User.class, condition);
+	    List<User> list = commonDaoMapper.selectByCriteria(User.class, condition);
 		result.put("data", list);
 		result.put("status", 0);
 		result.put("msg","ok");

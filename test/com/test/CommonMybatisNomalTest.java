@@ -3,40 +3,21 @@ package com.test;
 
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bert.common.batis.Criteria;
+import com.base.BaseSpringTestCase;
 import com.bert.common.batis.Condition;
+import com.bert.common.batis.Criteria;
 import com.bert.common.batis.criterion.Restrictions;
 import com.bert.common.batis.dao.mapper.CommonDaoMapper;
-import com.bert.common.batis.plugin.Transfer;
 import com.bert.domain.User;
 import com.bert.domain.UserKey;
 
-public class CommonMybatisTest {
-
-    private static ApplicationContext context;
-    private static SqlSessionTemplate sessionTemplate;
-    private static CommonDaoMapper commonDaoMapper;
-
-    
-    @Before
-    public void before(){
-    	try {
-            context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        sessionTemplate = context.getBean(SqlSessionTemplate.class);
-        sessionTemplate.getConfiguration().addInterceptor(new Transfer());
-        commonDaoMapper = context.getBean(CommonDaoMapper.class);
-    }
-    
-    
+public class CommonMybatisNomalTest extends BaseSpringTestCase{
+	
+	@Autowired
+	private CommonDaoMapper commonDaoMapper;
     /**
      * 查询全部
      */
@@ -57,8 +38,9 @@ public class CommonMybatisTest {
     public void testSelectByCriteria() {
         Condition condition = new Condition();
         Criteria criteria = new Criteria();
-        criteria.add(Restrictions.gt("id", 1));
-        criteria.add(Restrictions.lt("id", 4));
+        //condition = eq (=)
+        criteria.add(Restrictions.eq("id", 2));
+        //criteria.add(Restrictions.between("id", 1, 4));
         condition.add(criteria);
         List<User> list = commonDaoMapper.selectByCriteria(User.class, condition);
         for (User u : list) {

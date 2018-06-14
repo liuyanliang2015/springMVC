@@ -110,7 +110,7 @@
 	</bean>	
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-       <property name="basePackage" value="com.bert.core.**.dao" />
+       <property name="basePackage" value="com.bert.core.**.dao,com.bert.common.batis.dao.mapper" />
     </bean>
     
     

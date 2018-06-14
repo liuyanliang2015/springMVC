@@ -16,5 +16,9 @@
 			<plugin interceptor="com.bert.query.MyBatisPaginationInterceptor">
 				<property name="dialect" value="mysql" />
 			</plugin>
+			
+			<plugin interceptor="com.bert.common.batis.plugin.Transfer">
+				<property name="dialect" value="mysql" />
+			</plugin>
 		</plugins>
 	</configuration>
