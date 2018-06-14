@@ -1,11 +1,3 @@
-/**
- * 文件名:VerifySign.java 
- * 工程名：lsp
- * 包名:com.lzz.lsp.gas.sign
- * 作者:Administrator
- * 创建时间:2017年9月1日
- * Copyright (C) 2017 绿蜘蛛科技有限公司
- */
 package com.bert.util;
 
 import java.util.Iterator;
@@ -30,7 +22,7 @@ public class SignUtil {
 	 private static final Logger logger = LoggerFactory.getLogger(SignUtil.class);
 	 
 	/** 
-     * 微信支付签名算法sign 
+     * 签名算法sign 
      * @param characterEncoding  字符编码
      * @param parameters  参数集合
      * @return publicKey 密钥
@@ -64,6 +56,7 @@ public class SignUtil {
     	 return sign.toLowerCase();  
     }  
     
+    
     /**
      * 验证签名
      * Administrator
@@ -71,32 +64,6 @@ public class SignUtil {
      * @param characterEncoding
      * @param parameters
      * @return 
-     * 2017年9月1日 下午4:34:16
-     */
-  /*  public static boolean verify(String outSign,String characterEncoding,SortedMap<Object,Object> parameters){
-    	boolean flag = false;
-    	try {
-    		String inSign = createSign(characterEncoding,parameters,SignUtil.key_lzz);
-    		if(outSign != null && outSign.equals(inSign)){
-    			flag = true;
-    		}else{
-    			logger.error("sign verify fail ! innerSign->{}",inSign);
-    		}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	return flag;
-    }*/
-    
-    
-    /**
-     * 验证签名V2
-     * Administrator
-     * @param outSign
-     * @param characterEncoding
-     * @param parameters
-     * @return 
-     * 2017年9月1日 下午4:34:16
      */
     public static boolean verify2(String outSign,String characterEncoding,SortedMap<Object,Object> parameters){
     	boolean flag = false;
@@ -113,29 +80,4 @@ public class SignUtil {
     	return flag;
     }
     
-    /**
-     * 返回数据签名处理
-     * Administrator
-     * @param model 
-     * 2017年9月7日 上午11:36:52
-     */
-/*    public static void dealResponseSign(Map<String, Object> model){
-    	String appid = PropertiesSource.getProperty("gas_app_id");
-    	String code = model.get("code").toString();
-    	model.put("appid", appid);
-    	model.put("nonce_str", RandomUtil.getRandomString(32));
-    	model.put("timestamp", System.currentTimeMillis()/1000+"");
-    	if("0".equals(code)){
-    		model.put("order_id_lzz", model.get("order_id_lzz"));
-    	}
-    	SortedMap<Object,Object> parameters = new TreeMap<Object,Object>();
-    	for (Map.Entry<String, Object> entry : model.entrySet()) {  
-    		parameters.put(entry.getKey(), entry.getValue());
-    	} 
-    	
-        String characterEncoding = "UTF-8";  
-    	String sign = createSign(characterEncoding, parameters,SignUtil.key_lzz);
-    	model.put("sign", sign);
-    	
-    }*/
 }
