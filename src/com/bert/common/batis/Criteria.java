@@ -8,18 +8,18 @@ import com.bert.common.batis.criterion.Criterion;
 
 public class Criteria {
 
-    private List<Criterion> criteria = new ArrayList<Criterion>();
+    private List<Criterion> criterions = new ArrayList<Criterion>();
 
     public List<Criterion> getCriteria() {
-        return Collections.unmodifiableList(criteria);
+        return Collections.unmodifiableList(criterions);
     }
 
-    public void setCriteria(List<Criterion> criteria) {
-        this.criteria = criteria;
+    public void setCriteria(List<Criterion> criterions) {
+        this.criterions = criterions;
     }
 
     public Criteria add(Criterion criterion) {
-        criteria.add(criterion);
+    	criterions.add(criterion);
         return this;
     }
 
