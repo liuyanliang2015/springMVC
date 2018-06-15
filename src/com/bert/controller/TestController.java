@@ -100,7 +100,7 @@ public class TestController {
 	 *            fc71545ce59dbddee44e4447c5e981e6bb8ddc03420dd3081e0e82c5ec03c4e1
 	 * @return
 	 */
-	@RequestMapping(value = "/queryByServiceSign.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/queryByServiceSign.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> queryByServiceSign(HttpServletRequest request) {
 		logger.info("call /test/queryServiceSign.do!");

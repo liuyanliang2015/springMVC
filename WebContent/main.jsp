@@ -46,7 +46,7 @@
 		<script>
 			$("#getdata").on('click',function(e){
 				$.ajax({
-					type:"get",
+					type:"post",
 					dataType:"json",
 					url:"test/queryByServiceSign.do",
 					data:{
