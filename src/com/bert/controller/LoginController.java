@@ -18,7 +18,7 @@ import com.bert.common.util.HttpRequestUtil;
 @RequestMapping("/login")
 public class LoginController {
 
-	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();

@@ -22,16 +22,14 @@ public class TokenFilter implements Filter{
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest request=(HttpServletRequest) arg0;
+		HttpServletRequest request=( HttpServletRequest) arg0;
 		HttpServletResponse response=(HttpServletResponse) arg1;
-//		response.setHeader("Access-Control-Allow-Origin", "*");
 		if(request.getRequestURI().endsWith("/login/login.do")){
 			//登陆接口不校验token，直接放行
 			chain.doFilter(request, response);
@@ -66,7 +64,6 @@ public class TokenFilter implements Filter{
 	public void output(String jsonStr,HttpServletResponse response) throws IOException{
 		response.setContentType("text/html;charset=UTF-8;");
 		PrintWriter out = response.getWriter();
-//		out.println();
 		out.write(jsonStr);
 		out.flush();
 		out.close();
