@@ -375,7 +375,27 @@ TokenState state = TokenState.getTokenState((String)resultMap.get("state"));
 其他接口调用的时候，都需要带上token。服务器负责验证token是否有效。
 
 
-## 14：通用mapper集成
+## 14：sign签名算法
+
+/SpringMVC/src/com/bert/common/util/SignUtil.java
+
+接口中验签方法：
+```
+String sign = paramMap.get("sign");
+SortedMap<Object, Object> parameters = new TreeMap<Object, Object>();
+parameters.put("token", request.getHeader("token"));
+parameters.put("nonce_str", paramMap.get("nonce_str"));
+parameters.put("timestamp", paramMap.get("timestamp"));
+
+boolean ifSign = SignUtil.verify2(sign, "UTF-8", parameters);
+if (!ifSign) {
+	result.put("status", 10001);
+	result.put("msg", "sign错误");
+	return result;
+}
+```
+
+## 15：通用mapper集成
 
 @Autowired
 private CommonDaoMapper commonDaoMapper;
