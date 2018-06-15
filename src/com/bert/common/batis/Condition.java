@@ -7,9 +7,9 @@ import java.util.List;
 import com.bert.common.batis.criterion.Order;
 
 public class Condition {
-
+	
+	private Integer firstResult;
     private Integer maxResults;
-    private Integer firstResult;
     private List<Order> orderList;
     private List<Criteria> criterias;
     private boolean distinct;

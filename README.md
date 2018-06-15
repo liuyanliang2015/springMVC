@@ -346,3 +346,34 @@ spring中集成redis
 		</bean>
 ```
 
+
+## 通用mapper集成
+
+@Autowired
+private CommonDaoMapper commonDaoMapper;
+
+具体用法举例：
+```
+	Condition condition = new Condition();
+    condition.addOrder(Order.desc("id"));
+    condition.setFirstResult(1);
+    condition.setMaxResults(10);
+    List<User> list = 	commonDaoMapper.selectByCriteria(User.class,condition);
+```
+
+当然，CommonDaoMapper只支持单表查询，如果你想自定义sql，可以自定义Mapper extends CommonDaoMapper
+
+例如：UserDaoMapper
+
+```
+	@Autowired
+	private UserDaoMapper userDaoMapper;
+	
+	
+	@Override
+	public User getUser(User user) {
+		return userDaoMapper.selectByPrimaryKey(User.class, user).get(0);
+		//return userDao.getUser(user);
+	}
+	
+```

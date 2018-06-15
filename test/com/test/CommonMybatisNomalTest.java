@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.base.BaseSpringTestCase;
 import com.bert.common.batis.Condition;
 import com.bert.common.batis.Criteria;
+import com.bert.common.batis.criterion.Order;
 import com.bert.common.batis.criterion.Restrictions;
 import com.bert.common.batis.dao.mapper.CommonDaoMapper;
 import com.bert.domain.User;
@@ -25,12 +26,14 @@ public class CommonMybatisNomalTest extends BaseSpringTestCase{
     @Test
     public void testSelectAllByCriteria() {
         Condition condition = new Condition();
+        condition.addOrder(Order.desc("id"));
+        condition.setFirstResult(1);
+        condition.setMaxResults(10);
         List<User> list = commonDaoMapper.selectByCriteria(User.class, condition);
         for (User u : list) {
             System.out.println(u);
         }
     }
-    
     
     /**
      * 条件查询

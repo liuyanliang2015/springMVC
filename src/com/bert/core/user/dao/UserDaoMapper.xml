@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bert.core.user.dao.UserDao">
+<mapper namespace="com.bert.core.user.dao.UserDaoMapper">
 	<resultMap type="User" id="userMap">
 		<id property="id" column="ID" />
 		<result property="name" column="NAME" />
@@ -20,6 +20,4 @@
 		</where>
 		LIMIT 1
 	</select>
-
-
 </mapper>

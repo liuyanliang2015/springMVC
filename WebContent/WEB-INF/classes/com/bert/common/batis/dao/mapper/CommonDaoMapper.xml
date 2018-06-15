@@ -37,30 +37,32 @@
                                     test="criterion instanceof com.bert.common.batis.criterion.NullCriterion">
                                 ${criterion.statement}
                             </when>
-                            <when
-                                    test="criterion instanceof com.bert.common.batis.criterion.SimpleCriterion">
+                            <when test="criterion instanceof com.bert.common.batis.criterion.SimpleCriterion">
                                 ${criterion.statement} #{criterion.value}
                             </when>
                         </choose>
                     </foreach>
                 </trim>
             </foreach>
-            <foreach collection="condition.orderList" separator=","
-                     item="order">
-                ${order.statement}
-            </foreach>
-            <if test="condition.maxResults>0">
-                limit ${condition.firstResult},${condition.maxResults}
-            </if>
+            
         </where>
+        
+           <foreach collection="condition.orderList" separator=","
+                     item="order">
+               order by  ${order.statement}
+            </foreach>
+            
+            
+        <if test="condition.maxResults>0">
+                limit ${condition.firstResult},${condition.maxResults}
+        </if>
     </sql>
     
     <select id="selectByCriteria" parameterType="com.bert.common.batis.Condition">
-        select
-        * from @tableName@
-        <if test="_parameter != null">
-            <include refid="condition_Search"/>
-        </if>
+        select * from @tableName@
+	        <if test="_parameter != null">
+	            <include refid="condition_Search"/>
+	        </if>
     </select>
     
     <select id="selectByPrimaryKey">
