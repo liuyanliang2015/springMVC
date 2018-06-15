@@ -346,8 +346,36 @@ spring中集成redis
 		</bean>
 ```
 
+## 13：JWT集成
 
-## 13通用mapper集成
+login的时候，服务器生成token
+
+```
+Map<String, Object> payload = new HashMap<String, Object>();
+Date date = new Date();
+payload.put("uid", "admin");// 用户ID
+payload.put("iat", date.getTime());// 生成时间
+payload.put("ext", date.getTime() + 1000 * 60 * 60);// 过期时间1小时
+String token = Jwt.createToken(payload);
+```
+
+客户端获取到token后。保存到cookie或者localStorage。
+
+
+/SpringMVC/src/com/bert/filter/TokenFilter.java
+
+```
+//拦截验证token的有效性
+//从请求头中获取token
+String token=request.getHeader("token");
+Map<String, Object> resultMap=Jwt.validToken(token);
+TokenState state = TokenState.getTokenState((String)resultMap.get("state"));
+```
+
+其他接口调用的时候，都需要带上token。服务器负责验证token是否有效。
+
+
+## 14：通用mapper集成
 
 @Autowired
 private CommonDaoMapper commonDaoMapper;
