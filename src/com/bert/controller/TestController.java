@@ -100,16 +100,15 @@ public class TestController {
 	 *            fc71545ce59dbddee44e4447c5e981e6bb8ddc03420dd3081e0e82c5ec03c4e1
 	 * @return
 	 */
-	@RequestMapping(value = "/queryMybatis.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/queryByServiceSign.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> queryMybatis(HttpServletRequest request) {
-		logger.info("call /test/queryMybatis.do!");
+	public Map<String, Object> queryByServiceSign(HttpServletRequest request) {
+		logger.info("call /test/queryServiceSign.do!");
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, String> paramMap = HttpRequestUtil.getParameterMap(request);
 		String sign = paramMap.get("sign");
-
 		SortedMap<Object, Object> parameters = new TreeMap<Object, Object>();
-		parameters.put("uid", paramMap.get("uid"));
+		parameters.put("token", request.getHeader("token"));
 		parameters.put("nonce_str", paramMap.get("nonce_str"));
 		parameters.put("timestamp", paramMap.get("timestamp"));
 
@@ -119,6 +118,7 @@ public class TestController {
 			result.put("msg", "sign错误");
 			return result;
 		}
+		
 		User user = new User();
 		user.setId(1);
 		user = userService.getUser(user);
@@ -146,21 +146,6 @@ public class TestController {
 		return result;
 	}
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/getData.do", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, Object> getData(HttpServletRequest request) {
-		logger.info("call /test/getData.do!");
-		Map<String, Object> result = new HashMap<String, Object>();
-		HashMap<String, String> data = (HashMap<String, String>) request.getAttribute("data");
-		// payload中的数据可以用来做查询，比如我们在登陆成功时将用户ID存到了payload中，我们可以将它取出来，去数据库查询这个用户的所有信息；
-		// 而不是用request.getParameter("uid")方法来获取前端传给我们的uid，因为前端的参数时可篡改的不完全可信的，而我们从payload中取出来的数据是从token中
-		// 解密取出来的，在秘钥没有被破解的情况下，它是绝对可信的；这样可以避免别人用这个接口查询非自己用户ID的相关信息
-		result.put("data", data);
-		result.put("status", 0);
-		result.put("msg", "ok");
-		return result;
-	}
 
 	/**
 	 * remark25: 不配置视图解析器viewResolver，可以访问/index.jsp

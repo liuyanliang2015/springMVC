@@ -21,22 +21,49 @@
 		}
 	</style>
 <body>
-		<button type="button" id="getdata">getdata</button><br/>
-		<button type="button" id="loginout">loginout</button><br/>
+
+<div class="content">
+			<div class="item">
+				<label for="userName">nonce_str：</label><input type="text" name="nonce_str" id="nonce_str"  value="调用方随机生成字符串" />
+			</div>
+			<div class="item">
+				<label for="password">timestamp：</label><input type="text" name="timestamp" id="timestamp"  value="调用放时间戳" />
+			</div>
+			<div class="item">
+				<label for="password">sign：</label><input type="text" name="sign" id="sign"  value="调用方计算的签名" />
+			</div>
+			
+			<div class="item">
+				<label for="password">response：</label>
+				<textarea style="width: 300px;height: 200px;" id="responseData"></textarea>
+			</div>
+			<div class="item">
+						<button type="button" id="getdata">getdata</button><br/>
+						<button type="button" id="loginout">loginout</button><br/>
+			</div>
+		</div>
 		<script type="text/javascript" src="jquery-2.1.0.js" ></script>
 		<script>
 			$("#getdata").on('click',function(e){
 				$.ajax({
 					type:"get",
 					dataType:"json",
-					url:"test/getData.do",
+					url:"test/queryByServiceSign.do",
+					data:{
+						nonce_str: $("#nonce_str").val(),
+						timestamp:$("#timestamp").val(),
+						sign:$("#sign").val()
+					},
 					headers:{
 						token:localStorage.getItem("token")//将token放到请求头中
 					},
 					success:function(resp){
-						if(resp.status == 0){
-							$('body').append(JSON.stringify(resp.data));
-						}
+						console.log("success:"+JSON.stringify(resp));
+					    $('#responseData').val(JSON.stringify(resp));
+					},
+					error:function(resp){
+						console.log("error:"+resp);
+						$('#responseData').val(JSON.stringify(resp));
 					}
 				});
 			});

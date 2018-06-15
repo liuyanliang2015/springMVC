@@ -9,16 +9,16 @@
 
 	<select id="getUser" parameterType="User" resultMap="userMap">
 		SELECT
-		top 1
+		<!-- top 1 -->
 		*
 		FROM
-		tb_user t
+		user t
 		<where>
-			<if test="id !=null">AND t.ID = #{id}</if>
-			<if test="name !=null and name !=''">AND t.NAME = #{name}</if>
-			<if test="age !=null">AND t.AGE = #{age}</if>
+			<if test="id !=null">AND t.id = #{id}</if>
+			<if test="name !=null and name !=''">AND t.name = #{name}</if>
+			<if test="age !=null">AND t.age = #{age}</if>
 		</where>
-		<!-- LIMIT 1 -->
+		LIMIT 1
 	</select>
 
 
