@@ -347,7 +347,7 @@ spring中集成redis
 ```
 
 
-## 通用mapper集成
+## 13通用mapper集成
 
 @Autowired
 private CommonDaoMapper commonDaoMapper;
