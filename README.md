@@ -19,7 +19,7 @@ spring-instrument-4.3.16.RELEASE.jar
 spring-instrument-tomcat-4.3.16.RELEASE.jar
 spring-jdbc-4.3.16.RELEASE.jar
 spring-jms-4.3.16.RELEASE.jar
-spring-messaging-4.3.16.RELEASE.jar
+spring-messaging-4.3.16.RELEASE.jar1
 spring-orm-4.3.16.RELEASE.jar
 spring-oxm-4.3.16.RELEASE.jar
 spring-test-4.3.16.RELEASE.jar
@@ -97,21 +97,21 @@ public class BaseSpringTestCase {
 }
 
 public class UserRoleDealTest extends BaseSpringTestCase {
-	@Resource
-	private JdbcTemplate jdbcTemplate;
+@Resource
+private JdbcTemplate jdbcTemplate;
 	
-	@SuppressWarnings("rawtypes")
-	@org.junit.Test
-	public void testData() throws Exception {
-		try {
-			List<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from tb_user");
-			for (Map row : rows) {
-				System.out.println(row.get("NAME"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+@SuppressWarnings("rawtypes")
+@org.junit.Test
+public void testData() throws Exception {
+	try {
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList("select * from tb_user");
+		for (Map row : rows) {
+			System.out.println(row.get("NAME"));
 		}
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+}
 }
 
 ```
@@ -129,27 +129,28 @@ Spring提供了两种事务管理的方式：编程式事务管理和声明式�
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
-	<!-- 声明式事务方式1，基于tx和aop命名空间的xml配置文件-->
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
-			<tx:method name="*" read-only="true"/>
-		</tx:attributes>
-	</tx:advice>
-	
-
-	<!-- execution(* com.bert.core.*.*.*.*(..))  注意表达式中间用OR链接，大小写敏感-->
-	<aop:config>
-		<aop:pointcut id="txPointcut" expression="execution(* com.bert.core.*.*.*.*(..)) "/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" order="1"/>
-	</aop:config>
+<!-- 声明式事务方式1，基于tx和aop命名空间的xml配置文件-->
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+	<tx:attributes>
+		<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception"/>
+		<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception"/>
+		<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+		<tx:method name="*" read-only="true"/>
+	</tx:attributes>
+</tx:advice>
 
 
-	<!-- 声明式事务方式2，基于tx和aop命名空间的xml配置文件-->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	<!--事务配置end -->
+<!-- execution(* com.bert.core.*.*.*.*(..))  注意表达式中间用OR链接，大小写敏感-->
+<aop:config>
+	<aop:pointcut id="txPointcut" expression="execution(* com.bert.core.*.*.*.*(..)) "/>
+	<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" order="1"/>
+</aop:config>
+
+
+<!-- 声明式事务方式2，基于tx和aop命名空间的xml配置文件-->
+<tx:annotation-driven transaction-manager="transactionManager"/>
+<!--事务配置end -->
+
 ```	
 	
 依赖的jar：
@@ -187,9 +188,10 @@ mybatis-spring-1.2.3.jar
 	  <property name="configLocation" value="classpath:conf/mybatis/config.xml"/>
 	</bean>	
 	
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-       <property name="basePackage" value="com.bert.core.**.dao" />
-    </bean>
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+   <property name="basePackage" value="com.bert.core.**.dao" />
+</bean>
+
 ```
 配置mybatis配置文件config.xml
 ```
@@ -233,23 +235,24 @@ spring配置文件中配置ecache:
 		</property>
 	</bean>
 
-	<bean id="cacheFactory" class="com.bert.factory.EhCacheFactory">
-		<property name="cacheManager" ref="cacheManager"/>
-	</bean>
+<bean id="cacheFactory" class="com.bert.factory.EhCacheFactory">
+	<property name="cacheManager" ref="cacheManager"/>
+</bean>
+
 ```
 
 配置ehcache.xml:
 ```
 <?xml version="1.0" encoding="UTF-8"?>  
 <ehcache>
-		<!-- 磁盘缓存位置 -->
- 		<diskStore path="java.io.tmpdir"/>
- 		
-	    <defaultCache maxElementsInMemory="10000"  memoryStoreEvictionPolicy="LRU" 
-	       eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="300"  overflowToDisk="false" diskPersistent="false" />
-        
-	    <cache name="userDataCache" maxElementsInMemory="4000" eternal="true"
-	       overflowToDisk="false" diskPersistent="false" memoryStoreEvictionPolicy="LRU"/>    
+<!-- 磁盘缓存位置 -->
+<diskStore path="java.io.tmpdir"/>
+
+<defaultCache maxElementsInMemory="10000"  memoryStoreEvictionPolicy="LRU" 
+   eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="300"  overflowToDisk="false" diskPersistent="false" />
+
+<cache name="userDataCache" maxElementsInMemory="4000" eternal="true"
+   overflowToDisk="false" diskPersistent="false" memoryStoreEvictionPolicy="LRU"/>    
 </ehcache>
 ```
 
@@ -281,37 +284,38 @@ Controller用的用法：
 ### 12:切面编程
 配置aop.xml: <br>
 ```
-        <!--AOP用法1：代码拦截器控制 -->
-        <aop:config>
-			<aop:aspect id="taskAspect" ref="testTaskInterceptor">
-			<!-- 多个表达式之间用||分开 -->
-				<aop:pointcut id="taskPointcut" expression="(execution(* com.bert.controller.*Controller.*(..)))"/>
-	            <aop:after-throwing pointcut-ref="taskPointcut" method="doThrowing" throwing="ex"/>
-	            <aop:after-returning pointcut-ref="taskPointcut" method="doReturning" returning="result"/>
-			</aop:aspect>
-		</aop:config>
+<!--AOP用法1：代码拦截器控制 -->     
+<aop:config>
+   <aop:aspect id="taskAspect" ref="testTaskInterceptor">
+   <!-- 多个表达式之间用||分开 -->
+   <aop:pointcut id="taskPointcut" expression="(execution(* com.bert.controller.*Controller.*(..)))"/>
+   <aop:after-throwing pointcut-ref="taskPointcut" method="doThrowing" throwing="ex"/>
+   <aop:after-returning pointcut-ref="taskPointcut" method="doReturning" returning="result"/>
+   </aop:aspect>
+</aop:config>
 		
 		
-		<bean id="testTaskInterceptor" class="com.bert.task.interceptor.TaskInterceptor">
-			<property name="processors">
-				<list>
-					<ref bean="testTaskProcessor"/>
-				</list>
-			</property>		
-		</bean>
+<bean id="testTaskInterceptor" class="com.bert.task.interceptor.TaskInterceptor">
+	<property name="processors">
+		<list>
+			<ref bean="testTaskProcessor"/>
+		</list>
+	</property>		
+</bean>
+
 		
-		
-		<bean id="testTaskProcessor" class="com.bert.task.support.TestAOPTaskProcessor">
-			<!-- 注入service -->
-			<!-- Bean property 'userService' is not writable or has an invalid setter method. Does the parameter type of the setter match the return type of the getter? -->
-			<!--注入的service，对应的类中必须有set方法 -->
-			<property name="userService" ref="userService"/>
-			<property name="interceptInfos">
-				<list>
-					<value>com.bert.controller.TestController:testAop</value>
-				</list>
-			</property>
-		</bean> 
+<bean id="testTaskProcessor" class="com.bert.task.support.TestAOPTaskProcessor">
+	<!-- 注入service -->
+	<!-- Bean property 'userService' is not writable or has an invalid setter method. Does the parameter type of the setter match the return type of the getter? -->
+	<!--注入的service，对应的类中必须有set方法 -->
+	<property name="userService" ref="userService"/>
+	<property name="interceptInfos">
+		<list>
+			<value>com.bert.controller.TestController:testAop</value>
+		</list>
+	</property>
+</bean>
+ 
 ```		
 测试案例：http://localhost:8080/SpringMVC/test/testAop.do <br>
 访问上面的接口，就会调用TestAOPTaskProcessor中的doReturningTask方法，处理对应的业务逻辑。<br>
@@ -322,7 +326,9 @@ redis配置文件
 /springMVC/resource/conf/props/redis.properties
 ```
 spring中集成redis
+
 ```
+
 <bean id="jedisPoolConfig"  class="redis.clients.jedis.JedisPoolConfig"  >  
 		    <property name="maxActive"  value="${redis.pool.maxActive}" />  
 		    <property name="maxIdle"    value="${redis.pool.maxIdle}" />  
@@ -330,13 +336,14 @@ spring中集成redis
 		    <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />  
 		</bean>  
 		
-		 <bean id="jedisShardInfo1" class="com.bert.redis.NewJedisShardInfo">  
+ <bean id="jedisShardInfo1" class="com.bert.redis.NewJedisShardInfo">  
 	        <constructor-arg  index="0"   value="${redis.ip}" />  
 		    <constructor-arg  index="1"   value="${redis.port}" type="int" />  
 		    <constructor-arg  index="2"   value="${redis.pool.password}"/>   
-    	</bean>  
+ </bean>  
 		
-		<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" >  
+
+<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" >  
 		    <constructor-arg index="0"  ref="jedisPoolConfig" />  
 		    <constructor-arg index="1">  
 		        <list>  
@@ -344,6 +351,7 @@ spring中集成redis
 		        </list>  
 		    </constructor-arg>  
 		</bean>
+		
 ```
 
 ## 13：JWT集成
@@ -416,8 +424,6 @@ private CommonDaoMapper commonDaoMapper;
 ```
 	@Autowired
 	private UserDaoMapper userDaoMapper;
-	
-	
 	@Override
 	public User getUser(User user) {
 		return userDaoMapper.selectByPrimaryKey(User.class, user).get(0);

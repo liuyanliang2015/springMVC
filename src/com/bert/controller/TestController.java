@@ -52,7 +52,6 @@ public class TestController {
 
 	/**
 	 * 测试类/test/test.do
-	 * 
 	 * @param request
 	 *            remark5:不配置@ResponseBody，可以访问接口，但浏览器返回404
 	 *            remark6：配置上@ResponseBody，可以访问接口，但是浏览器返回406 The resource
@@ -70,8 +69,7 @@ public class TestController {
 	}
 
 	/**
-	 * 查询数据库
-	 * 
+	 * jdbcTemplate查询数据库
 	 * @param request
 	 * @return
 	 */
@@ -92,7 +90,7 @@ public class TestController {
 	}
 
 	/**
-	 * <!--remark21：测试service->dao->mybatis--> 测试mybatis
+	 * <!--remark21：使用userService以及增加sign签名验证
 	 * 
 	 * @param request
 	 *            http://localhost:8080/SpringMVC/test/queryMybatis.do?uid=1&
@@ -107,6 +105,7 @@ public class TestController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, String> paramMap = HttpRequestUtil.getParameterMap(request);
 		String sign = paramMap.get("sign");
+		//SortedMap按自然顺序排序
 		SortedMap<Object, Object> parameters = new TreeMap<Object, Object>();
 		parameters.put("token", request.getHeader("token"));
 		parameters.put("nonce_str", paramMap.get("nonce_str"));
@@ -128,6 +127,12 @@ public class TestController {
 		return result;
 	}
 
+	
+	/**
+	 * 通用mybatis查询方法
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/queryCommonMybatis.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> queryCommonMybatis(HttpServletRequest request) {
@@ -183,7 +188,6 @@ public class TestController {
 
 	/**
 	 * 测试AOP切面编程
-	 * 
 	 * @param request
 	 * @return
 	 */

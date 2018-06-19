@@ -74,7 +74,7 @@
 	
 	
 	
-	<filter>
+	<!-- <filter>
 		<filter-name>TokenFilter</filter-name>
 		<filter-class>com.bert.filter.TokenFilter</filter-class>
 	</filter>
@@ -82,6 +82,6 @@
 	<filter-mapping>
 		<filter-name>TokenFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 	
 </web-app>
