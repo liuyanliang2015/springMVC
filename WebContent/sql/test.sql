@@ -19,7 +19,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `tb_user` (
+CREATE TABLE `user` (
   `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `NAME` varchar(50) NOT NULL COMMENT '姓名',
   `AGE` int(3) NOT NULL DEFAULT '1' COMMENT '年龄',
@@ -29,9 +29,9 @@ CREATE TABLE `tb_user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES ('1', '张三', '13');
-INSERT INTO `tb_user` VALUES ('2', '李四', '14');
-INSERT INTO `tb_user` VALUES ('3', '王五', '15');
-INSERT INTO `tb_user` VALUES ('4', '孙六', '16');
-INSERT INTO `tb_user` VALUES ('5', '周七', '17');
-INSERT INTO `tb_user` VALUES ('6', '王八', '18');
+INSERT INTO `user` VALUES ('1', '张三', '13');
+INSERT INTO `user` VALUES ('2', '李四', '14');
+INSERT INTO `user` VALUES ('3', '王五', '15');
+INSERT INTO `user` VALUES ('4', '孙六', '16');
+INSERT INTO `user` VALUES ('5', '周七', '17');
+INSERT INTO `user` VALUES ('6', '王八', '18');
