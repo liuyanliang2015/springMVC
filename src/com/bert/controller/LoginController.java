@@ -18,6 +18,11 @@ import com.bert.common.util.HttpRequestUtil;
 @RequestMapping("/login")
 public class LoginController {
 
+	/**
+	 * 模拟登录接口，生成token令牌
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> login(HttpServletRequest request) {

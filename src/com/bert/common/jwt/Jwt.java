@@ -38,7 +38,6 @@ public class Jwt {
     
 	/**
 	 * 生成token，该方法只在用户登录成功后调用
-	 * 
 	 * @param Map集合，可以存储用户id，token生成时间，token过期时间等自定义字段
 	 * @return token字符串,若失败则返回null
 	 */

@@ -55,7 +55,8 @@
 						sign:$("#sign").val()
 					},
 					headers:{
-						token:localStorage.getItem("token")//将token放到请求头中
+						token:localStorage.getItem("token")
+						//将token放到请求头中
 					},
 					success:function(resp){
 						console.log("success:"+JSON.stringify(resp));

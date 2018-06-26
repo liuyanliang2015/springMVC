@@ -45,6 +45,10 @@ public class MyBatisPaginationInterceptor implements Interceptor {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Object intercept(Invocation invocation) throws Throwable {
 		final Object[] args = invocation.getArgs();
+		try {
+			
+		} catch (Exception e) {
+		}
 		if(args!=null && args.length>=2){
 			Object paramObject = args[1];
 			if (paramObject instanceof QueryObject<?> && ((QueryObject<?>) paramObject).isUsePage()) {

@@ -1,4 +1,4 @@
-package com.bert.common.batis.util;
+																																								package com.bert.common.batis.util;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;

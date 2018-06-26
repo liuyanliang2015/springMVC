@@ -1,6 +1,7 @@
 package com.test;
 
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import org.junit.Test;
@@ -45,6 +46,11 @@ public class CommonMybatisNomalTest extends BaseSpringTestCase{
         //condition = eq (=)
         criteria.add(Restrictions.eq("id", 2));
         //criteria.add(Restrictions.between("id", 1, 4));
+        //Object[] values = new Object[3];
+        //values[0] = 1;
+        //values[1] = 3;
+        //values[2] = 5;
+        //criteria.add(Restrictions.in("id", values));
         condition.add(criteria);
         List<User> list = commonDaoMapper.selectByCriteria(User.class, condition);
         for (User u : list) {

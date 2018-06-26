@@ -16,9 +16,9 @@ Date: 2018-04-19 18:23:35
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for tb_user
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `tb_user`;
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `tb_user` (
   `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `NAME` varchar(50) NOT NULL COMMENT '姓名',
@@ -27,7 +27,11 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of tb_user
+-- Records of user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES ('1', '张三', '11');
-INSERT INTO `tb_user` VALUES ('2', '李四', '12');
+INSERT INTO `tb_user` VALUES ('1', '张三', '13');
+INSERT INTO `tb_user` VALUES ('2', '李四', '14');
+INSERT INTO `tb_user` VALUES ('3', '王五', '15');
+INSERT INTO `tb_user` VALUES ('4', '孙六', '16');
+INSERT INTO `tb_user` VALUES ('5', '周七', '17');
+INSERT INTO `tb_user` VALUES ('6', '王八', '18');
