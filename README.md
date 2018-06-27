@@ -2,7 +2,7 @@
 ## 项目地址：https://github.com/liuyanliang2015/springMVC.git
 ## 项目介绍
 本项目以初学者的角度，从0开始搭建SpringMVC框架。项目中，小编做了详细的注释，请注意remark标注。<br>
-项目中用spring集成了mybatis、redis、数据库事务、EhCache等，满足了一般开发的需求。
+项目中用spring集成了mybatis、redis、事务、EhCache，DWR，Quartz等，满足了一般开发的需求。
 ## 搭建过程
 ### 1：导入springMVC需要的核心包
 ```
