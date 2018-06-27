@@ -90,6 +90,13 @@
 	<servlet>
     <servlet-name>dwr-invoker</servlet-name>
     <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+    
+    <init-param>  
+      <param-name >org.directwebremoting.extend.ScriptSessionManager </param-name>  
+      <param-value >com.bert.dwr.DWRScriptSessionManager </param-value>  
+	</init-param>  
+
+
     <init-param>
       <param-name>debug</param-name>
       <param-value>false</param-value>

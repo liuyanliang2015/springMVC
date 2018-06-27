@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bert.common.jwt.Jwt;
 import com.bert.common.util.HttpRequestUtil;
 
+/**
+ * 模拟登录
+ * @author GW00165699
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController {

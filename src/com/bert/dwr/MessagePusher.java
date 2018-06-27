@@ -10,8 +10,7 @@ import org.directwebremoting.WebContextFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * @author ljyuan 2017年11月20日
- * @Description:  
+ * MessagePusher
  */
 public class MessagePusher {
 	public void onPageLoad(String userId) {

@@ -28,6 +28,10 @@ import com.bert.core.user.service.UserService;
 import com.bert.domain.User;
 import com.google.gson.Gson;
 
+/**
+ * 测试接口
+ * @author GW00165699
+ */
 //警告: No mapping found for HTTP request with URI [/SpringMVC/test/test.do] in DispatcherServlet with name 'dispatcher'
 // remark4 :要想能够请求到contoller中的方法，必须在spring-mvc.xml配置文件中，配置下面的内容
 //<context:component-scan base-package="com.bert.controller" use-default-filters="false">
