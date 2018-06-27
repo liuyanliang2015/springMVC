@@ -49,7 +49,8 @@
 						if(resp.status == 0){
 							//将token存在本地存储，然后跳转到主页面
 							localStorage.setItem('token',resp.token);
-							location.href="main.jsp";
+							//location.href="main.jsp";
+							location.href="led.jsp";
 						}
 					}
 				});

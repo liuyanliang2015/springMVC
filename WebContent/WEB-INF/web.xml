@@ -73,7 +73,7 @@
 	</filter-mapping>
 	
 	
-	
+	<!-- 是否开启接口token验证 -->
 	<!-- <filter>
 		<filter-name>TokenFilter</filter-name>
 		<filter-class>com.bert.filter.TokenFilter</filter-class>
