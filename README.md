@@ -431,3 +431,122 @@ private CommonDaoMapper commonDaoMapper;
 	}
 	
 ```
+
+## 16：集成Quartz定时任务
+
+导入jar ：quartz-2.3.0.jar
+
+导入/SpringMVC/resource/conf/spring/spring-quartz.xml
+
+```
+
+<!-- 天气定时任务begin -->
+    <bean id="weatherTimingSchedule" class="com.bert.timer.WeatherTimingSchedule"/>
+    <!-- 加入定时执行的方法 -->
+    <bean id="weatherTimingScheduleJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <!-- 定时执行的类 -->
+        <property name="targetObject" ref="weatherTimingSchedule"/>
+        <!-- 具体的方法 -->
+        <property name="targetMethod" value="execute"/>
+    </bean>
+     <!-- 调度触发器，设置自己想要的时间规则 -->
+    <bean id="weatherTimingScheduleTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <!-- 加入相关的执行类和方法 -->
+        <property name="jobDetail" ref="weatherTimingScheduleJobDetail"/>
+        <!-- 设置时间规则 （为了方便测试，设置成一分钟一次。具体的规则见详情）-->
+        <property name="cronExpression" value="0/2 * * * * ? "/>    
+    </bean>
+    
+ <!-- 天气定时任务end -->
+
+<!-- 将两个定时任务加入调度工厂 ,设置调度触发器即可-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="weatherTimingScheduleTrigger"/>
+            </list>
+        </property>
+    </bean>
+
+
+```
+
+## 17：集成DWR
+
+导入需要的jar：dwr-3.0.2-RELEASE.jar
+
+在web.xml中配置dwr:
+
+```
+
+<!-- 配置DWR -->
+	<servlet>
+    <servlet-name>dwr-invoker</servlet-name>
+    <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>activeReverseAjaxEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>initApplicationScopeCreatorsAtStartup</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jsonRpcEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jsonpEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dwr-invoker</servlet-name>
+    <url-pattern>/dwr/*</url-pattern>
+  </servlet-mapping>
+
+```
+
+在web.xml同级目录引入dwr.xml
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 3.0//EN" "http://getahead.org/dwr/dwr30.dtd">
+
+<dwr>
+  <allow>
+  	<create creator="new" javascript="MessagePusher"> 
+         <param name="class" value="com.bert.dwr.MessagePusher"/> 
+    </create> 
+  </allow>
+</dwr>
+
+```
+
+当运行
+
+http://localhost:8080/SpringMVC/web/toLed.do?userId=1
+
+http://localhost:8080/SpringMVC/web/toLed.do?userId=2
+
+分别跳转到led_weather.jsp和led_stock.jsp两个页面后，
+
+会自动生成文件/dwr/interface/MessagePusher.js
+
+后台定时任务，执行任务：
+
+/SpringMVC/src/com/bert/timer/StockTimingSchedule.java
+
+/SpringMVC/src/com/bert/timer/WeatherTimingSchedule.java
+
+```
+ MessagePusher push = new MessagePusher();
+ push.sendMessage("2", "股票信息:"+RandomUtil.getRandomString(16));
+```
+
+就会触发前端的showMessage()方法，将推送的数据展示在前端jsp页面。
