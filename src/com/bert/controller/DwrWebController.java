@@ -14,7 +14,7 @@ import com.bert.common.util.HttpRequestUtil;
 import com.bert.dwr.MessagePusher;
 
 @Controller
-@RequestMapping("/web")
+@RequestMapping("/led")
 public class DwrWebController {
 	//private static Logger log = LoggerFactory.getLogger(DwrWebController.class);
 	
@@ -30,6 +30,8 @@ public class DwrWebController {
 					
 		}else if("2".equals(userId)){
 			jspPath = "/led_stock";
+		}else{
+			jspPath = "/led_main";
 		}
 		ModelAndView mv = new ModelAndView(jspPath);
 		return mv;

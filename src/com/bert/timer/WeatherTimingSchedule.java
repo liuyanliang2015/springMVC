@@ -1,15 +1,14 @@
 package com.bert.timer;
 
-import java.util.Date;
-
 import com.bert.common.util.RandomUtil;
 import com.bert.dwr.MessagePusher;
 
 public class WeatherTimingSchedule {
 	 //定时执行的方法
     public void execute(){
-        System.out.println("执行时间"+ new Date());
         MessagePusher push = new MessagePusher();
-        push.sendMessage("1", "天气信息:"+RandomUtil.getRandomString(16));
+        //第一个参数0，表示广播
+        push.sendMessage("0", "天气预报:"+RandomUtil.getRandomString(16));
+        push.sendMessage("0", "人民币汇率:"+RandomUtil.getRandomString(16));
     }
 }

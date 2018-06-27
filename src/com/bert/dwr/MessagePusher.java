@@ -42,7 +42,7 @@ public class MessagePusher {
 				private ScriptBuffer script = new ScriptBuffer();
 				public void run() {
 					//对应页面调用的方法名称及参数
-					script.appendCall("showMessage", msg);
+				    script.appendCall("showMessage", msg);
 					Collection<ScriptSession> sessions = Browser.getTargetSessions();
 					for (ScriptSession scriptSession : sessions) {
 						scriptSession.addScript(script);
