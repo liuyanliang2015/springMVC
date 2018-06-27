@@ -1,6 +1,7 @@
 package com.bert.controller;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ import com.bert.dwr.MessagePusher;
  * @author GW00165699
  */
 @Controller
-@RequestMapping("/dwr")
+@RequestMapping("/led")
 public class DwrWebController {
 	
 	/**
@@ -32,7 +33,7 @@ public class DwrWebController {
 	 */
 	@RequestMapping("/toLed")
 	@ResponseBody
-	public ModelAndView dwrReceiveMsg(HttpServletRequest request,HttpServletResponse response){
+	public ModelAndView toLed(HttpServletRequest request,HttpServletResponse response){
 		Map<String, String> paramMap = HttpRequestUtil.getParameterMap(request);
 		String userId = paramMap.get("userId");
 		
@@ -82,9 +83,19 @@ public class DwrWebController {
 	 * @param request
 	 * @param response
 	 */
+	@SuppressWarnings("rawtypes")
 	@RequestMapping("/getSessions")
 	@ResponseBody
 	public void getSessions(HttpServletRequest request,HttpServletResponse response){
+		
+		
+		Map<String, ScriptSession> maps = DWRScriptSessionListener.scriptSessionMap;
+		Iterator iterator = maps.keySet().iterator(); 
+		while(iterator.hasNext()){
+			String key = (String)iterator.next();
+			System.out.println("key:"+key+", value:"+maps.get(key));
+		}
+		
 		//得到所有ScriptSession  
 		Collection<ScriptSession> sessions = DWRScriptSessionListener.getScriptSessions();
 		System.out.println("session size="+sessions.size());
