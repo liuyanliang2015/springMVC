@@ -320,7 +320,7 @@ Controller用的用法：
 测试案例：http://localhost:8080/SpringMVC/test/testAop.do <br>
 访问上面的接口，就会调用TestAOPTaskProcessor中的doReturningTask方法，处理对应的业务逻辑。<br>
 
-### 12:集成redis
+### 13:集成redis
 redis配置文件
 ```
 /springMVC/resource/conf/props/redis.properties
@@ -354,7 +354,7 @@ spring中集成redis
 		
 ```
 
-## 13：JWT集成
+## 14：JWT集成
 
 login的时候，服务器生成token
 
@@ -383,7 +383,7 @@ TokenState state = TokenState.getTokenState((String)resultMap.get("state"));
 其他接口调用的时候，都需要带上token。服务器负责验证token是否有效。
 
 
-## 14：sign签名算法
+## 15：sign签名算法
 
 /SpringMVC/src/com/bert/common/util/SignUtil.java
 
@@ -403,7 +403,7 @@ if (!ifSign) {
 }
 ```
 
-## 15：通用mapper集成
+## 16：通用mapper集成
 
 @Autowired
 private CommonDaoMapper commonDaoMapper;
@@ -432,7 +432,7 @@ private CommonDaoMapper commonDaoMapper;
 	
 ```
 
-## 16：集成Quartz定时任务
+## 17：集成Quartz定时任务
 
 导入jar ：quartz-2.3.0.jar
 
@@ -471,7 +471,7 @@ private CommonDaoMapper commonDaoMapper;
 
 ```
 
-## 17：集成DWR
+## 18：集成DWR
 
 导入需要的jar：dwr-3.0.2-RELEASE.jar
 
