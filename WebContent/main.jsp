@@ -8,7 +8,7 @@
 </head>
 	<style>
 		.content{
-			font-size: 14px;
+			font-size: 14px ;
 			margin: 0;
 			padding: 10px;
 			text-align: center;
