@@ -18,14 +18,15 @@ import org.directwebremoting.event.ScriptSessionListener;
  * DWRScriptSessionListener
  */
 public class DWRScriptSessionListener implements ScriptSessionListener{
-	//维护一个Map key为session的Id， value为ScriptSession对象  
+	//维护一个Map key为httpSession的Id， value为ScriptSession对象  
     public static final Map<String, ScriptSession> scriptSessionMap = new HashMap<String, ScriptSession>();  
  
     /** 
      * ScriptSession创建事件 
      */  
     public void sessionCreated(ScriptSessionEvent event) {  
-          WebContext webContext = WebContextFactory. get();  
+    	  //获取WebContext对象
+          WebContext webContext = WebContextFactory.get();  
           HttpSession session = webContext.getSession();  
           ScriptSession scriptSession = event.getSession();  
            scriptSessionMap.put(session.getId(), scriptSession);     //添加scriptSession  
@@ -36,7 +37,7 @@ public class DWRScriptSessionListener implements ScriptSessionListener{
      * ScriptSession销毁事件 
      */  
     public void sessionDestroyed(ScriptSessionEvent event) {  
-          WebContext webContext = WebContextFactory. get();  
+          WebContext webContext = WebContextFactory.get();  
           HttpSession session = webContext.getSession();  
           ScriptSession scriptSession = scriptSessionMap.remove(session.getId());  //移除scriptSession  
           System. out.println( "session: " + session.getId() + " scriptSession: " + scriptSession.getId() + "is destroyed!");  

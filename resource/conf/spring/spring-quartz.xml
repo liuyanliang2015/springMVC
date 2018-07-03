@@ -34,7 +34,7 @@
         <!-- 加入相关的执行类和方法 -->
         <property name="jobDetail" ref="weatherTimingScheduleJobDetail"/>
         <!-- 设置时间规则 （为了方便测试，设置成一分钟一次。具体的规则见详情）-->
-        <property name="cronExpression" value="0/5 * * * * ? "/>    
+        <property name="cronExpression" value="0/10 * * * * ? "/>    
     </bean>
     <!-- 天气定时任务end -->
     
@@ -53,7 +53,7 @@
         <!-- 加入相关的执行类和方法 -->
         <property name="jobDetail" ref="stockTimingScheduleJobDetail"/>
         <!-- 设置时间规则 （为了方便测试，设置成一分钟一次。具体的规则见详情）-->
-        <property name="cronExpression" value="0/2 * * * * ? "/>    
+        <property name="cronExpression" value="0/5 * * * * ? "/>    
     </bean>
     <!-- 股票定时任务end -->
     

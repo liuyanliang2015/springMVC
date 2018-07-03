@@ -8,7 +8,6 @@ public class WeatherTimingSchedule {
     public void execute(){
         MessagePusher push = new MessagePusher();
         //第一个参数0，表示广播
-        push.sendMessage("0", "天气预报:"+RandomUtil.getRandomString(16));
-        push.sendMessage("0", "人民币汇率:"+RandomUtil.getRandomString(16));
+        push.sendMessage("1", "天气预报:"+RandomUtil.getRandomString(16));
     }
 }

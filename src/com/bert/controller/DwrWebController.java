@@ -76,8 +76,6 @@ public class DwrWebController {
 		push.sendMessage("0", "我很高兴啊！");
 	}
 	
-	
-	
 	/**
 	 * 获取DWR-session个数
 	 * @param request
@@ -98,9 +96,7 @@ public class DwrWebController {
 		
 		//得到所有ScriptSession  
 		Collection<ScriptSession> sessions = DWRScriptSessionListener.getScriptSessions();
-		System.out.println("session size="+sessions.size());
+		System.out.println("HttpSessionKey size="+sessions.size());
 	}
-	
-	
 	
 }

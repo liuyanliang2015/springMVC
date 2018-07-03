@@ -119,6 +119,12 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  	<!-- 这里的路径，对应前台页面，引入的engine.js,util.js,interface/MessagePusher.js的路径 -->
+	<!-- 
+	<script type="text/javascript" src='<%=request.getContextPath()%>/dwr/engine.js'></script>
+	<script type="text/javascript" src='<%=request.getContextPath()%>/dwr/util.js'></script>
+	<script type="text/javascript" src='<%=request.getContextPath()%>/dwr/interface/MessagePusher.js'></script>
+ 	-->
   <servlet-mapping>
     <servlet-name>dwr-invoker</servlet-name>
     <url-pattern>/dwr/*</url-pattern>

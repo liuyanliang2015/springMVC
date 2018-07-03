@@ -1,0 +1,8 @@
+/applicationContext.xml
+/com/
+/conf/
+/jdbc.properties
+/log4j.xml
+/logback.xml
+/spring_test.xml
+/spy.properties

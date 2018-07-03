@@ -7,16 +7,19 @@
 <title>屏幕1:天气预报</title>
 <!-- 路径从web.xml中配置,具体文件不需要特意引入真实的js，项目自动生成 -->
 <!-- DwrDemo自动生成,名称对应dwr中配置的create:javascript,路径对应web.xml中配置的url-pattern -->
-<script type="text/javascript" src='<%=request.getContextPath()  %>/dwr/engine.js'></script>
-<script type="text/javascript" src='<%=request.getContextPath()  %>/dwr/util.js'></script>
-<script type="text/javascript" src='<%=request.getContextPath()  %>/dwr/interface/MessagePusher.js'></script>
-<script type="text/javascript" src='<%=request.getContextPath() %>/js/jquery.js'></script>
+<script type="text/javascript" src='<%=request.getContextPath()%>/dwr/engine.js'></script>
+<script type="text/javascript" src='<%=request.getContextPath()%>/dwr/util.js'></script>
+<script type="text/javascript" src='<%=request.getContextPath()%>/dwr/interface/MessagePusher.js'></script>
+<script type="text/javascript" src='<%=request.getContextPath()%>/js/jquery.js'></script>
 <script type="text/javascript">
 	var userId =  '${param.userId}';
 	function init(){
 		if (userId || userId != ''){
+			//这里的dwr命名不能修改
 			dwr.engine.setActiveReverseAjax(true);
 			dwr.engine.setNotifyServerOnPageUnload(true);
+			console.log("----MessagePusher.onPageLoad");
+			//alert("是否执行onPageLoad");
 			MessagePusher.onPageLoad(userId);
 		}
 	}
